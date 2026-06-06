@@ -1,0 +1,34 @@
+﻿@model graduation_proj.Models.Dish
+
+@{
+    ViewData["Title"] = "Edit Dish";
+}
+
+<h2>Edit Dish</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="DishId" />
+    <input type="hidden" asp-for="HostProfileId" />
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price"></span>
+    </div>
+    <div>
+        <label asp-for="ServesPersons"></label>
+        <input asp-for="ServesPersons" />
+        <span asp-validation-for="ServesPersons"></span>
+    </div>
+    <button type="submit">Save</button>
+    <a asp-action="Index">Back to List</a>
+</form>

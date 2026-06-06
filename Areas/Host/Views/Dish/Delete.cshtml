@@ -1,0 +1,17 @@
+﻿@model graduation_proj.Models.Dish
+
+@{
+    ViewData["Title"] = "Delete Dish";
+}
+
+<h2>Are you sure you want to delete this dish?</h2>
+
+<p>@Model.Name</p>
+<p>@Model.Description</p>
+<p>@Model.Price</p>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="DishId" />
+    <button type="submit">Yes, Delete</button>
+    <a asp-action="Index">Cancel</a>
+</form>

@@ -1,0 +1,15 @@
+﻿@model graduation_proj.Models.Dish
+
+@{
+    ViewData["Title"] = "Dish Details";
+}
+
+<h2>Dish Details</h2>
+
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Description:</strong> @Model.Description</p>
+<p><strong>Price:</strong> @Model.Price</p>
+<p><strong>Serves:</strong> @Model.ServesPersons persons</p>
+
+<a asp-action="Edit" asp-route-id="@Model.DishId">Edit</a>
+<a asp-action="Index">Back to List</a>

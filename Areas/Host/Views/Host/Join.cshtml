@@ -1,0 +1,40 @@
+﻿@model graduation_proj.Models.HostProfile
+
+@{
+    ViewData["Title"] = "Join as Host";
+}
+
+<h2>Join as Host</h2>
+
+<form asp-action="Join" method="post" enctype="multipart/form-data">
+    <div>
+        <label asp-for="Country"></label>
+        <input asp-for="Country" />
+        <span asp-validation-for="Country"></span>
+    </div>
+    <div>
+        <label asp-for="City"></label>
+        <input asp-for="City" />
+        <span asp-validation-for="City"></span>
+    </div>
+    <div>
+        <label asp-for="Location"></label>
+        <input asp-for="Location" />
+        <span asp-validation-for="Location"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" />
+        <span asp-validation-for="PhoneNumber"></span>
+    </div>
+    <div>
+        <label asp-for="Bio"></label>
+        <textarea asp-for="Bio"></textarea>
+        <span asp-validation-for="Bio"></span>
+    </div>
+    <div>
+        <label>Picture of your place</label>
+        <input type="file" name="PlacePicture" accept="image/*" />
+    </div>
+    <button type="submit">Join Now</button>
+</form>

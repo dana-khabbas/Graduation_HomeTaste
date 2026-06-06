@@ -1,0 +1,249 @@
+﻿@{
+    ViewData["Title"] = "System Overview";
+    ViewData["ActivePage"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- ===== PAGE HEADER ===== -->
+<div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-5">
+    <div>
+        <h2 class="adm-page-title">System Overview</h2>
+        <p class="adm-page-subtitle">Real-time performance metrics for HomeTaste</p>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+        <div class="adm-date-badge">
+            <span class="material-symbols-outlined adm-date-icon">calendar_month</span>
+            <span>Oct 1 – Oct 31, 2024</span>
+        </div>
+        <button class="adm-notif-btn">
+            <span class="material-symbols-outlined">notifications</span>
+        </button>
+    </div>
+</div>
+
+<!-- ===== STAT CARDS ===== -->
+<div class="row g-4 mb-5">
+
+    <!-- Total Users -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="adm-stat-card adm-stat-card--accent h-100">
+            <p class="adm-stat-label">Total Users</p>
+            <h3 class="adm-stat-value adm-stat-value--primary">12,482</h3>
+            <div class="adm-stat-trend">
+                <span class="material-symbols-outlined adm-trend-icon">trending_up</span>
+                <span>+12.5% vs last month</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Hosts -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="adm-stat-card h-100">
+            <p class="adm-stat-label">Active Hosts</p>
+            <h3 class="adm-stat-value">843</h3>
+            <div class="adm-stat-trend">
+                <span class="material-symbols-outlined adm-trend-icon">trending_up</span>
+                <span>42 new this week</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Bookings -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="adm-stat-card h-100">
+            <p class="adm-stat-label">Total Bookings</p>
+            <h3 class="adm-stat-value">3,120</h3>
+            <div class="adm-stat-trend adm-stat-trend--muted">
+                <span class="material-symbols-outlined adm-trend-icon">sync</span>
+                <span>$42.5k revenue</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popular Dish -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="adm-stat-card adm-stat-card--dark h-100 position-relative overflow-hidden">
+            <p class="adm-stat-label-light">Popular Dish</p>
+            <h3 class="adm-stat-value-light mt-1">Spicy Truffle Risotto</h3>
+            <div class="adm-stat-trend-light mt-2">
+                <span class="material-symbols-outlined adm-trend-icon-fill">restaurant</span>
+                <span>142 orders today</span>
+            </div>
+            <!-- Decorative circle -->
+            <div class="adm-stat-deco-circle"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ===== MAIN CONTENT ROW ===== -->
+<div class="row g-4">
+
+    <!-- Left Column: Chart + Top Dishes -->
+    <div class="col-12 col-lg-8">
+
+        <!-- Booking Volume Chart -->
+        <div class="adm-card mb-4">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
+                <div>
+                    <h4 class="adm-card-title">Booking Volume</h4>
+                    <p class="adm-card-subtitle">Daily transactions across all categories</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <span class="adm-filter-pill">Weekly</span>
+                    <span class="adm-filter-pill adm-filter-pill--active">Monthly</span>
+                </div>
+            </div>
+
+            <!-- Bar Chart (CSS-only) -->
+            <div class="adm-chart-wrap d-flex align-items-end gap-2 px-2">
+                <div class="adm-bar" style="height: 40%;" data-day="Mon"></div>
+                <div class="adm-bar" style="height: 60%;" data-day="Tue"></div>
+                <div class="adm-bar" style="height: 55%;" data-day="Wed"></div>
+                <div class="adm-bar adm-bar--peak position-relative" style="height: 85%;" data-day="Thu">
+                    <span class="adm-bar-peak-label">Peak</span>
+                </div>
+                <div class="adm-bar" style="height: 70%;" data-day="Fri"></div>
+                <div class="adm-bar" style="height: 90%;" data-day="Sat"></div>
+                <div class="adm-bar" style="height: 45%;" data-day="Sun"></div>
+            </div>
+            <div class="adm-chart-labels d-flex justify-content-between px-2 mt-2">
+                <span>Mon</span><span>Tue</span><span>Wed</span>
+                <span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+        </div>
+
+        <!-- Top Performing Dishes -->
+        <div class="adm-card">
+            <h4 class="adm-card-title mb-4">Top Performing Dishes</h4>
+
+            <!-- Dish Row 1 -->
+            <div class="adm-dish-row">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="adm-dish-thumb">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZRLT9gGLxxCE4T2sGZ8whIOs70ztkHEt4arO5YYIjPoaK1RQMwID2cbpYOm5TOnEHwmt5Di0x3079xauMEmuDu9WbtddqSetmgXPl6nazQA90qdOQIEfRu0RFgxulv6z1ZN_tp5cebsDUI64AtM8uK9xepWC8sN5fx6qgpI8z-uUJO0cOpvkmBcvT1Y3BFRXCSP7cJfNJ4E6lT_hp9Z3RTUt_FVAT0rUj5uKj50nChJzsv-FhHoaEkFAwp5YjU2ZIu91JxJ5FSgU"
+                             alt="Heirloom Tomato Salad" />
+                    </div>
+                    <div>
+                        <p class="adm-dish-name">Heirloom Tomato Salad</p>
+                        <p class="adm-dish-host">Host: Marco R.</p>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <p class="adm-dish-orders">1,204</p>
+                    <p class="adm-dish-orders-label">Total Orders</p>
+                </div>
+            </div>
+
+            <!-- Dish Row 2 -->
+            <div class="adm-dish-row">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="adm-dish-thumb">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAsjgAP-w1JHNg5WRIYJst89tgPWISTqTXXAdu2PwXsIKtPWwZmnuZV080m7X7Dezya-kv3UaeIFeqmnHgGB_PfAEnzbzpvuAjC50zXC3yQk495r0MOkY0veXmAenvvUCOuboj9jdPx3b-A-hAWoRiupRG8YN-ngBzfP1i1PqromhezSvxdC7w-ydK9YF3HVm_ZOxu4YLsRVzpbF-HZeiWBVBdej1QQW-Pgj0MldaZe-z-sN9zHvkERbuXgfEuXO7LbRGw4GYIF30"
+                             alt="Wild Mushroom Tagliatelle" />
+                    </div>
+                    <div>
+                        <p class="adm-dish-name">Wild Mushroom Tagliatelle</p>
+                        <p class="adm-dish-host">Host: Sarah K.</p>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <p class="adm-dish-orders">982</p>
+                    <p class="adm-dish-orders-label">Total Orders</p>
+                </div>
+            </div>
+
+            <!-- Dish Row 3 -->
+            <div class="adm-dish-row">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="adm-dish-thumb">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmsGaPpSCVULMb1GypQxdgDlTk46imzKJ96mBRjqD7lXB5AjtAbbyOb35rpHfY9WovmK_LTBRNLhlhCwQi9M8_9mYj8hgnUG8iOOZBiPdTfMUHQe1UnC2TOu7kMAApMXJh2XNuAAE1DELAx1yqZXWZ3KGKm0aMDAC0G4gpxgHmwI5akv5N3n2Re9EmB-sa_titT-vJ2R_JCBXnNAQOH8Ms35HVbMyzFo8IYrxOk3IFIkJpjxtRwPlLoJbkob7iHw-oFMAYnOXGU1g"
+                             alt="Atlantic Salmon Bowl" />
+                    </div>
+                    <div>
+                        <p class="adm-dish-name">Atlantic Salmon Bowl</p>
+                        <p class="adm-dish-host">Host: Kenji S.</p>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <p class="adm-dish-orders">856</p>
+                    <p class="adm-dish-orders-label">Total Orders</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Right Column: Activity Feed -->
+    <div class="col-12 col-lg-4">
+        <div class="adm-card h-100 d-flex flex-column">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="adm-card-title mb-0">Recent Activity</h4>
+                <span class="material-symbols-outlined adm-refresh-btn">refresh</span>
+            </div>
+
+            <div class="d-flex flex-column gap-4 flex-grow-1">
+
+                <!-- Activity 1 -->
+                <div class="adm-activity-item">
+                    <div class="adm-activity-icon adm-activity-icon--secondary">
+                        <span class="material-symbols-outlined">person_add</span>
+                    </div>
+                    <div>
+                        <p class="adm-activity-text"><strong>Alex Miller</strong> joined as a Guest.</p>
+                        <p class="adm-activity-time">2 minutes ago</p>
+                    </div>
+                </div>
+
+                <!-- Activity 2 -->
+                <div class="adm-activity-item">
+                    <div class="adm-activity-icon adm-activity-icon--primary">
+                        <span class="material-symbols-outlined">payments</span>
+                    </div>
+                    <div>
+                        <p class="adm-activity-text"><strong>Booking Confirmed</strong> for "Sunday Roast" with Clara P.</p>
+                        <p class="adm-activity-time">15 minutes ago</p>
+                    </div>
+                </div>
+
+                <!-- Activity 3 -->
+                <div class="adm-activity-item">
+                    <div class="adm-activity-icon adm-activity-icon--tertiary">
+                        <span class="material-symbols-outlined">star</span>
+                    </div>
+                    <div>
+                        <p class="adm-activity-text"><strong>New Review</strong>: 5 stars for "Authentic Pad Thai".</p>
+                        <p class="adm-activity-time">1 hour ago</p>
+                    </div>
+                </div>
+
+                <!-- Activity 4 -->
+                <div class="adm-activity-item">
+                    <div class="adm-activity-icon adm-activity-icon--secondary">
+                        <span class="material-symbols-outlined">house</span>
+                    </div>
+                    <div>
+                        <p class="adm-activity-text"><strong>New Kitchen</strong> listed in Downtown Brooklyn.</p>
+                        <p class="adm-activity-time">3 hours ago</p>
+                    </div>
+                </div>
+
+                <!-- Activity 5 -->
+                <div class="adm-activity-item">
+                    <div class="adm-activity-icon adm-activity-icon--primary">
+                        <span class="material-symbols-outlined">campaign</span>
+                    </div>
+                    <div>
+                        <p class="adm-activity-text"><strong>System Notice</strong>: Scheduled maintenance at 2 AM.</p>
+                        <p class="adm-activity-time">5 hours ago</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn adm-btn-view-all mt-4">View All Activity</button>
+        </div>
+    </div>
+
+</div>

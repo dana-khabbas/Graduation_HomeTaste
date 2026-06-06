@@ -1,0 +1,556 @@
+﻿/* =============================================
+   HomeTaste – Guest Area Stylesheet
+   Uses Bootstrap 5 as base, custom classes
+   prefixed with "ht-" to avoid conflicts
+   ============================================= */
+
+/* ---------- CSS Variables (Color Tokens) ---------- */
+:root {
+    --ht-primary: #ab3500;
+    --ht-primary-container: #ff6b35;
+    --ht-surface: #faf9f9;
+    --ht-surface-container: #efeeed;
+    --ht-surface-low: #f4f3f3;
+    --ht-surface-highest: #e3e2e2;
+    --ht-on-surface: #1a1c1c;
+    --ht-on-surface-var: #594139;
+    --ht-outline: #8d7168;
+    --ht-outline-variant: #e1bfb5;
+    --ht-secondary-container: #e2e0d6;
+    --ht-font-heading: 'Montserrat', sans-serif;
+    --ht-font-body: 'Inter', sans-serif;
+}
+
+/* ---------- Base ---------- */
+body {
+    font-family: var(--ht-font-body);
+    background-color: var(--ht-surface);
+    color: var(--ht-on-surface);
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ---------- Navbar ---------- */
+.ht-navbar {
+    background-color: var(--ht-surface);
+    height: 80px;
+    box-shadow: 0 4px 12px rgba(64, 61, 57, 0.08);
+    z-index: 1000;
+}
+
+.ht-brand-name {
+    font-family: var(--ht-font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ht-primary);
+}
+
+.ht-nav-link {
+    font-family: var(--ht-font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ht-on-surface-var);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+    .ht-nav-link:hover,
+    .ht-nav-link--active {
+        color: var(--ht-primary);
+        border-bottom: 2px solid var(--ht-primary);
+        padding-bottom: 4px;
+    }
+
+/* ---------- Buttons ---------- */
+.ht-btn-primary {
+    background-color: var(--ht-primary-container);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    padding: 8px 24px;
+    border: none;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+    .ht-btn-primary:hover {
+        opacity: 0.9;
+        color: #fff;
+    }
+
+    .ht-btn-primary:active {
+        transform: scale(0.96);
+    }
+
+.ht-btn-lg {
+    padding: 14px 36px;
+    font-size: 13px;
+}
+
+.ht-btn-outline {
+    border: 1px solid var(--ht-outline);
+    color: var(--ht-on-surface-var);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    padding: 8px 24px;
+    transition: background-color 0.2s;
+    text-decoration: none;
+}
+
+    .ht-btn-outline:hover {
+        background-color: var(--ht-surface-container);
+        color: var(--ht-on-surface);
+    }
+
+.ht-btn-discover {
+    border: 1px solid var(--ht-primary);
+    color: var(--ht-primary);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    padding: 12px 36px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn2 {
+    color:white;
+    background-color: var(--ht-primary-container);
+}
+
+    .ht-btn-discover:hover {
+        background-color: var(--ht-primary);
+        color: #fff;
+    }
+
+/* ---------- Hero ---------- */
+.ht-hero {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ht-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCw8WVJ7g51G_Jb6LXL8__Jwx0mZec8tGRfFnXJOruc3AB6tKK4Ue0FeBHJDjZrMbxtmltq4boCOIBywhYUBEFg2SoRNTPwFQaSAKwoVSFOBJyqQEdf6kQMe6pimW6MoMPXflhBTVEE5_tRTbdGWAzxUgzDo5ZvQTeMWFKgKFkZFM6roHBPmqkkpozx_AkxbOayolUWy8TW5P4GW92zPVUyN9rB2XA3OAfQrttBac0FbXEFK9V21IkK4pOncxXnVJFkrgGEcL0TRwA');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.7s ease;
+}
+
+.ht-hero:hover .ht-hero-bg {
+    transform: scale(1.04);
+}
+
+.ht-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+}
+
+.ht-hero-content {
+    position: relative;
+    z-index: 10;
+    padding: 0 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ht-hero-title {
+    font-family: var(--ht-font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    color: #fff;
+    max-width: 700px;
+    margin-bottom: 32px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+@media (min-width: 768px) {
+    .ht-hero-title {
+        font-size: 48px;
+        line-height: 56px;
+    }
+}
+
+/* ---------- Search Bar ---------- */
+.ht-search-bar {
+    background: rgba(255,255,255,0.97);
+    border-radius: 9999px;
+    padding: 8px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.ht-search-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--ht-on-surface-var);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.ht-search-select {
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ht-on-surface);
+    width: 100%;
+    cursor: pointer;
+    padding: 0;
+}
+
+    .ht-search-select:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+.ht-search-btn {
+    background-color: var(--ht-primary-container);
+    color: #fff;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+    .ht-search-btn:hover {
+        opacity: 0.9;
+    }
+
+    .ht-search-btn:active {
+        transform: scale(0.95);
+    }
+
+/* ---------- Section Headers ---------- */
+.ht-section-title {
+    font-family: var(--ht-font-heading);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ht-on-surface);
+    margin-bottom: 4px;
+}
+
+.ht-section-subtitle {
+    font-size: 15px;
+    color: var(--ht-on-surface-var);
+    margin-bottom: 0;
+}
+
+/* ---------- Sort Buttons ---------- */
+.ht-sort-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--ht-on-surface-var);
+    text-transform: uppercase;
+}
+
+.ht-sort-btn {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    padding: 6px 16px;
+    border: 1px solid var(--ht-outline-variant);
+    background: #fff;
+    color: var(--ht-on-surface);
+    transition: background-color 0.2s;
+}
+
+    .ht-sort-btn:hover {
+        background-color: var(--ht-surface-container);
+    }
+
+.ht-sort-btn--active {
+    background-color: var(--ht-surface-low);
+}
+
+/* ---------- Experience Cards ---------- */
+.ht-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(64,61,57,0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+    .ht-card:hover {
+        box-shadow: 0 16px 32px rgba(64,61,57,0.13);
+        transform: translateY(-4px);
+    }
+
+.ht-card-img-wrap {
+    position: relative;
+    aspect-ratio: 3/2;
+    overflow: hidden;
+}
+
+.ht-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ht-card:hover .ht-card-img {
+    transform: scale(1.08);
+}
+
+.ht-card-rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(4px);
+    padding: 4px 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ht-on-surface);
+}
+
+.ht-star-icon {
+    font-size: 16px;
+    color: var(--ht-primary);
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.ht-card-title {
+    font-family: var(--ht-font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ht-on-surface);
+    margin-bottom: 4px;
+    transition: color 0.2s;
+}
+
+.ht-card:hover .ht-card-title {
+    color: var(--ht-primary);
+}
+
+.ht-card-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ht-primary);
+    white-space: nowrap;
+}
+
+.ht-card-location {
+    font-size: 13px;
+    color: var(--ht-on-surface-var);
+    margin-bottom: 12px;
+}
+
+/* ---------- Tags ---------- */
+.ht-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.ht-tag--primary {
+    background-color: var(--ht-secondary-container);
+    color: var(--ht-on-surface-var);
+}
+
+.ht-tag--secondary {
+    background-color: var(--ht-surface-highest);
+    color: var(--ht-on-surface-var);
+}
+
+/* ---------- Host Promo Section ---------- */
+.ht-host-promo {
+    background-color: var(--ht-surface-low);
+    margin-top: 48px;
+}
+
+.ht-promo-img-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.15);
+    aspect-ratio: 1/1;
+}
+
+.ht-promo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ht-quote-card {
+    position: absolute;
+    bottom: -24px;
+    right: -24px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 240px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.ht-quote-text {
+    font-family: var(--ht-font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ht-primary);
+    margin-bottom: 6px;
+}
+
+.ht-quote-author {
+    font-size: 12px;
+    color: var(--ht-on-surface-var);
+    margin: 0;
+}
+
+.ht-promo-title {
+    font-family: var(--ht-font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--ht-on-surface);
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .ht-promo-title {
+        font-size: 42px;
+    }
+}
+
+.ht-promo-subtitle {
+    font-size: 16px;
+    line-height: 26px;
+    color: var(--ht-on-surface-var);
+    margin-bottom: 28px;
+}
+
+.ht-benefit-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.ht-check-icon {
+    color: var(--ht-primary);
+    font-size: 22px;
+}
+
+/* ---------- Footer ---------- */
+.ht-footer {
+    background-color: var(--ht-surface-highest);
+}
+
+.ht-footer-brand {
+    font-family: var(--ht-font-heading);
+    font-size: 18px;
+    font-weight: 700;
+    color: #5f5f57;
+}
+
+.ht-footer-heading {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ht-on-surface);
+}
+
+.ht-footer-text {
+    font-size: 13px;
+    color: var(--ht-on-surface-var);
+    margin: 0;
+}
+
+.ht-footer-link {
+    font-size: 13px;
+    color: var(--ht-on-surface-var);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+    .ht-footer-link:hover {
+        color: var(--ht-primary);
+    }
+
+.ht-newsletter-input {
+    font-size: 13px;
+    border-color: var(--ht-outline-variant);
+    border-radius: 8px;
+}
+
+    .ht-newsletter-input:focus {
+        border-color: var(--ht-primary);
+        box-shadow: 0 0 0 2px rgba(171,53,0,0.15);
+    }
+
+.ht-btn-send {
+    background-color: #5f5f57;
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 12px;
+    border: none;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+    .ht-btn-send:hover {
+        background-color: var(--ht-on-surface);
+    }
+
+.ht-footer-bar {
+    border-top: 1px solid var(--ht-outline-variant);
+    padding: 20px 0;
+}
+
+.ht-footer-copy {
+    font-size: 13px;
+    color: var(--ht-on-surface-var);
+}
+
+.ht-footer-icon {
+    color: var(--ht-on-surface-var);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+    .ht-footer-icon:hover {
+        color: var(--ht-primary);
+    }

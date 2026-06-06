@@ -1,0 +1,27 @@
+﻿@model IEnumerable<graduation_proj.Models.Review>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h2>Reviews</h2>
+
+@if (!Model.Any())
+{
+    <p>No reviews yet for this dish.</p>
+}
+else
+{
+    @foreach (var review in Model)
+    {
+        <div>
+            <p><strong>@review.Guest?.FullName</strong></p>
+            <p>Rating: @review.Rating / 5</p>
+            <p>@review.Comment</p>
+            <p><small>@review.CreatedAt.ToShortDateString()</small></p>
+            <hr />
+        </div>
+    }
+}
+
+<a asp-action="MyBookings" asp-controller="Booking">Back to My Bookings</a>

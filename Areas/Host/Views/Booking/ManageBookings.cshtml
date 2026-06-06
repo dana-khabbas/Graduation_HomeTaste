@@ -1,0 +1,50 @@
+﻿@model IEnumerable<graduation_proj.Models.Booking>
+
+@{
+    ViewData["Title"] = "Manage Bookings";
+}
+
+<h2>Manage Bookings</h2>
+
+@if (!Model.Any())
+{
+    <p>No bookings yet.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Guest</th>
+                <th>Dish</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Persons</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.Guest?.FullName</td>
+                    <td>@booking.Dish?.Name</td>
+                    <td>@booking.VisitDate.ToShortDateString()</td>
+                    <td>@booking.VisitTime</td>
+                    <td>@booking.NumberOfPersons</td>
+                    <td>@booking.Status</td>
+                    <td>
+                        @if (booking.Status == graduation_proj.Models.BookingStatus.Pending)
+                        {
+                            <form asp-action="Confirm" method="post">
+                                <input type="hidden" name="id" value="@booking.BookingId" />
+                                <button type="submit">Confirm</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

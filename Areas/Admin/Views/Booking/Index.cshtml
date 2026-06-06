@@ -1,0 +1,41 @@
+﻿@model IEnumerable<graduation_proj.Models.Booking>
+
+@{
+    ViewData["Title"] = "Manage Bookings";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Manage Bookings</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Guest</th>
+            <th>Dish</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Persons</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.Guest?.FullName</td>
+                <td>@booking.Dish?.Name</td>
+                <td>@booking.VisitDate.ToShortDateString()</td>
+                <td>@booking.VisitTime</td>
+                <td>@booking.NumberOfPersons</td>
+                <td>@booking.Status</td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@booking.BookingId" />
+                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

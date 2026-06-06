@@ -1,0 +1,27 @@
+﻿@model graduation_proj.Models.Review
+
+@{
+    ViewData["Title"] = "Leave a Review";
+}
+
+<h2>Leave a Review</h2>
+
+@if (ViewBag.Dish != null)
+{
+    <p><strong>Dish:</strong> @ViewBag.Dish.Name</p>
+}
+
+<form asp-action="Create" method="post">
+    <input type="hidden" asp-for="DishId" />
+    <div>
+        <label asp-for="Rating">Rating (1-5)</label>
+        <input asp-for="Rating" type="number" min="1" max="5" />
+        <span asp-validation-for="Rating"></span>
+    </div>
+    <div>
+        <label asp-for="Comment"></label>
+        <textarea asp-for="Comment"></textarea>
+        <span asp-validation-for="Comment"></span>
+    </div>
+    <button type="submit">Submit Review</button>
+</form>

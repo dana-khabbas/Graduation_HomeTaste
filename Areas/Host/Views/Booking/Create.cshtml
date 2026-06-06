@@ -1,0 +1,35 @@
+﻿@model graduation_proj.Models.Booking
+
+@{
+    ViewData["Title"] = "Book a Visit";
+}
+
+<h2>Book a Visit</h2>
+
+@if (ViewBag.Dish != null)
+{
+    <p><strong>Dish:</strong> @ViewBag.Dish.Name</p>
+    <p><strong>Price:</strong> @ViewBag.Dish.Price</p>
+    <p><strong>Serves:</strong> @ViewBag.Dish.ServesPersons persons</p>
+}
+
+<form asp-action="Create" method="post">
+    <input type="hidden" asp-for="DishId" />
+    <div>
+        <label asp-for="VisitDate"></label>
+        <input asp-for="VisitDate" type="date" />
+        <span asp-validation-for="VisitDate"></span>
+    </div>
+    <div>
+        <label asp-for="VisitTime"></label>
+        <input asp-for="VisitTime" type="time" />
+        <span asp-validation-for="VisitTime"></span>
+    </div>
+    <div>
+        <label asp-for="NumberOfPersons"></label>
+        <input asp-for="NumberOfPersons" type="number" min="1" />
+        <span asp-validation-for="NumberOfPersons"></span>
+    </div>
+    <button type="submit">Confirm Booking</button>
+    <a asp-action="MyBookings">Cancel</a>
+</form>

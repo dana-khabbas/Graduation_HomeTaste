@@ -1,0 +1,37 @@
+﻿@model IEnumerable<graduation_proj.Models.Dish>
+
+@{
+    ViewData["Title"] = "Manage Dishes";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Manage Dishes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Dish Name</th>
+            <th>Price</th>
+            <th>Serves</th>
+            <th>Host</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dish in Model)
+        {
+            <tr>
+                <td>@dish.Name</td>
+                <td>@dish.Price</td>
+                <td>@dish.ServesPersons</td>
+                <td>@dish.HostProfile?.UserId</td>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@dish.DishId" />
+                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
