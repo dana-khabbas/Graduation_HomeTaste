@@ -54,20 +54,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Guest/Views/Booking/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcR3Vlc3RcVmlld3NcQm9va2luZ1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Guest/Views/Booking/MyBookings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcR3Vlc3RcVmlld3NcQm9va2luZ1xNeUJvb2tpbmdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Guest/Views/Home/DishDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcR3Vlc3RcVmlld3NcSG9tZVxEaXNoRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Guest/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcR3Vlc3RcVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/Booking/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSG9zdFxWaWV3c1xCb29raW5nXENyZWF0ZS5jc2h0bWw=
+[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Guest/Views/Review/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcR3Vlc3RcVmlld3NcUmV2aWV3XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Guest/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcR3Vlc3RcVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Guest/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcR3Vlc3RcVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/Booking/ManageBookings.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSG9zdFxWaWV3c1xCb29raW5nXE1hbmFnZUJvb2tpbmdzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/Booking/MyBookings.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSG9zdFxWaWV3c1xCb29raW5nXE15Qm9va2luZ3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/Dish/Create.cshtml]
@@ -94,12 +110,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSG9zdFxWaWV3c1xIb3N0XEpvaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/Review/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSG9zdFxWaWV3c1xSZXZpZXdcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/Review/DishReviews.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSG9zdFxWaWV3c1xSZXZpZXdcRGlzaFJldmlld3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/Review/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSG9zdFxWaWV3c1xSZXZpZXdcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HP/Desktop/orange coding school/asp.net core mvc/graduation_proj/Areas/Host/Views/_ViewImports.cshtml]

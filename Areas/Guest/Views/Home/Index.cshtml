@@ -2,6 +2,7 @@
     ViewBag.Title = "Authentic Homemade Food";
     Layout = "~/Views/Shared/_GuestLayout.cshtml";
 }
+@model IEnumerable<graduation_proj.Models.Dish>
 
 <!-- ===== HERO SECTION ===== -->
 <section class="ht-hero position-relative overflow-hidden">
@@ -82,110 +83,33 @@
 
     <!-- Cards Grid -->
     <div class="row g-4">
-
-        <!-- Card 1 -->
+    @foreach (var dish in Model)
+    {
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="ht-card h-100">
                 <div class="ht-card-img-wrap">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjLnn4vjhpc9xuEAecUoV1VZuXULU_8VwZez_CWn9YtQ8BwkF67Ui1xdaQw5TFr0q5JIEzt7cqnhy7NWwELMbxSbMdOWdbngbgAUK1mLobCf0H7cdGmrVStwKldsuFb_x003rJA3tZ7T0eDj16hiajMLqsNXev2jp3HIAhAtAZfK-23QlHVlc9ZUGhGpPVty5Az7ggIGHhqZ2GUhDyB3AJq0nSBH-lk9Th0bdcjhDJaop6dpMuFXazI4Ba2UzGHmjtLdDt8Va7X4Y"
-                         alt="Nonna's Secret Carbonara" class="ht-card-img" />
-                    <div class="ht-card-rating">
-                        <span class="material-symbols-outlined ht-star-icon">star</span>
-                        <span>4.9</span>
-                    </div>
+                    @if (dish.DishPicturePath != null)
+                    {
+                        <img src="@dish.DishPicturePath" alt="@dish.Name" class="ht-card-img" style="width:100%; height:200px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <div style="width:100%; height:200px; background:#f0f0f0;"></div>
+                    }
                 </div>
                 <div class="p-3">
                     <div class="d-flex justify-content-between align-items-start mb-1">
-                        <h5 class="ht-card-title">Nonna's Secret Carbonara</h5>
-                        <span class="ht-card-price">$32</span>
+                        <h5 class="ht-card-title">@dish.Name</h5>
+                        <span class="ht-card-price">$@dish.Price</span>
                     </div>
-                    <p class="ht-card-location">Rome, Italy • 4 Guests max</p>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <span class="ht-tag ht-tag--primary">AUTHENTIC</span>
-                        <span class="ht-tag ht-tag--secondary">HOMEMADE</span>
-                    </div>
+                    <p class="ht-card-location">@dish.HostProfile?.City • @dish.ServesPersons Guests max</p>
+                    <a href="/guest/home/dishdetails/@dish.DishId" class="btn btn-warning btn-sm mt-2">View Dish</a>
                 </div>
             </div>
         </div>
-
-        <!-- Card 2 -->
-        <div class="col-12 col-sm-6 col-lg-3">
-            <div class="ht-card h-100">
-                <div class="ht-card-img-wrap">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHDuaasrNR-o1c_QfoVyipzzZCsoVr6VoaxLYz7tRUaxeNiE2623j8OIVNgiTVjxAl-6OsJltn82nTJ-i3F8no8CG0Ms606IMAgwNZ5f_SmFaxgmSoAAGRNibR61EkurBdel0sN6c19DoqBwFvi5J_jiIvRr5VTPb-6YJZXLVPHAftXROzeWqrGMRkR77wXytUWEOu03ibssicRJmrNZOS9KzHADAXR1aVFXD6IFKV_Lif5xfCCDnBySag5dolOFGet4s5gVLqdeo"
-                         alt="Spice Market Green Curry" class="ht-card-img" />
-                    <div class="ht-card-rating">
-                        <span class="material-symbols-outlined ht-star-icon">star</span>
-                        <span>5.0</span>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-1">
-                        <h5 class="ht-card-title">Spice Market Green Curry</h5>
-                        <span class="ht-card-price">$28</span>
-                    </div>
-                    <p class="ht-card-location">Bangkok, Thailand • 6 Guests max</p>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <span class="ht-tag ht-tag--primary">SPICY</span>
-                        <span class="ht-tag ht-tag--secondary">VEGAN OPTION</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-12 col-sm-6 col-lg-3">
-            <div class="ht-card h-100">
-                <div class="ht-card-img-wrap">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyKTRoOryzqjucZzWnWEBjRmBjA3_pv29CymuzIohDI8Rvfvj_ZVjwXfn5Ag2lPu8GwLh6L-Fd7Z935iz_CNlgsUTIlMsz65Krmm5hyugJXTTuhV2-CzW1cDfJNHKXfvwHw0NR8FYhPFL2ZsqnUrZ3Gtap4VMdfPYlegZT05N-g2uv9OTZrgmgguj2THkX29PXlABWYrmbx6ZIUJkii9scfkMg27JA2dt-jg2HV4V3r9KhCZjy6guczN9EtupFGibr0SvCxRQKHYE"
-                         alt="Tradition in Oaxaca: Mole" class="ht-card-img" />
-                    <div class="ht-card-rating">
-                        <span class="material-symbols-outlined ht-star-icon">star</span>
-                        <span>4.8</span>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-1">
-                        <h5 class="ht-card-title">Tradition in Oaxaca: Mole</h5>
-                        <span class="ht-card-price">$35</span>
-                    </div>
-                    <p class="ht-card-location">Oaxaca, Mexico • 4 Guests max</p>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <span class="ht-tag ht-tag--primary">HERITAGE</span>
-                        <span class="ht-tag ht-tag--secondary">BEST SELLER</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="col-12 col-sm-6 col-lg-3">
-            <div class="ht-card h-100">
-                <div class="ht-card-img-wrap">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4lSDhOrDl67DnCaUIrCUWE3wHW2QFfX8Ig4Rt1uGCot7-b_AVZ_Vl8s_Q7zMaR6veAvsQan7s3dAkO2m53itd-58ps9QMocjnVaWszq1xdwR1zER7dTkwh2ATcZt_G3wD6AgSqj6LxM7fqU8ycDAOV2pg_QwfpVZnzsOi5RObKP02hihvT8qUND42XCUvMXp-z0SMygmw6Qj6nZ8-zCHqmj9EjTi9QftPepx7AC-5P341TCUOINx8UPm6BTfGmAqdWYoURuQGAi4"
-                         alt="Evening in Paris: Coq au Vin" class="ht-card-img" />
-                    <div class="ht-card-rating">
-                        <span class="material-symbols-outlined ht-star-icon">star</span>
-                        <span>4.9</span>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-1">
-                        <h5 class="ht-card-title">Evening in Paris: Coq au Vin</h5>
-                        <span class="ht-card-price">$45</span>
-                    </div>
-                    <p class="ht-card-location">Paris, France • 2 Guests max</p>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <span class="ht-tag ht-tag--primary">PREMIUM</span>
-                        <span class="ht-tag ht-tag--secondary">ROMANTIC</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Discover More Button -->
+    }
+</div> 
+<!-- Discover more Button -->
     <div class="text-center mt-5">
         <button class="btn ht-btn-discover">Discover More Experiences</button>
     </div>
@@ -200,8 +124,7 @@
             <!-- Image Side -->
             <div class="col-12 col-md-6 position-relative">
                 <div class="ht-promo-img-wrap">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBftCEKbuEVJffixzUtk_L9zGMUvm3ALZ9QAFDq8NRpw3cIo9M9WaziRRZlgtqFqzNc6o4F2s8PPybXE7vfTcMwP1KOwX9QyC1YSA0zlzGtoMRX-XroU7zuJR-GCWwWI39pRpl2jNtIMD7Jmx5lg-0myBsFkEKCCKkZffLfvqiKva9ukHyq286ET5lF3jFOIzs25s2NdQFQ_c_pWG98ajkBt9MgVwKg0zUbQ7EXLTy3Y4Ip4_9gOhQBppY7rAUCA7tw1XxYGIMixeQ"
-                         alt="Host in her kitchen" class="ht-promo-img" />
+                    <img src="/images/cooking-host.png" alt="Host in her kitchen" class="ht-promo-img" />
                 </div>
                 <!-- Quote Card -->
                 <div class="ht-quote-card">
@@ -231,7 +154,9 @@
                         Insurance and 24/7 host support
                     </li>
                 </ul>
-                <button class="btn ht-btn-primary ht-btn-lg">Start Your Hosting Journey</button>
+                <a asp-area="Host" asp-controller="Host" asp-action="Join" class="btn ht-btn-primary ht-btn-lg">
+                Start Your Hosting Journey
+                </a>
             </div>
 
         </div>

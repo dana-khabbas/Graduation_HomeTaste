@@ -10,6 +10,17 @@
 <p><strong>Description:</strong> @Model.Description</p>
 <p><strong>Price:</strong> @Model.Price</p>
 <p><strong>Serves:</strong> @Model.ServesPersons persons</p>
+<p><strong>Picture:</strong>   <td>
+        @if (!string.IsNullOrEmpty(@Model.DishPicturePath))
+    {
+            <img src="@Model.DishPicturePath" alt="@Model.Name" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;" />
+    }
+    else
+    {
+        <span>No Image</span>
+    }
+    </td>
+</p>
 
 <a asp-action="Edit" asp-route-id="@Model.DishId">Edit</a>
 <a asp-action="Index">Back to List</a>

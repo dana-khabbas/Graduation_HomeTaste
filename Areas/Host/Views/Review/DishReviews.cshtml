@@ -1,27 +1,40 @@
 ﻿@model IEnumerable<graduation_proj.Models.Review>
 
 @{
-    ViewData["Title"] = "Reviews";
+    ViewData["Title"] = $"Reviews for {ViewBag.DishName}";
 }
 
-<h2>Reviews</h2>
+<div class="container py-4">
+    <h2>Reviews for: <span class="text-primary">@ViewBag.DishName</span></h2>
+    <hr />
 
-@if (!Model.Any())
-{
-    <p>No reviews yet for this dish.</p>
-}
-else
-{
-    @foreach (var review in Model)
+    @if (!Model.Any())
     {
-        <div>
-            <p><strong>@review.Guest?.FullName</strong></p>
-            <p>Rating: @review.Rating / 5</p>
-            <p>@review.Comment</p>
-            <p><small>@review.CreatedAt.ToShortDateString()</small></p>
-            <hr />
-        </div>
+        <div class="alert alert-light border">No reviews have been left for this dish yet.</div>
     }
-}
+    else
+    {
+        @foreach (var review in Model)
+        {
+            <div class="mb-3 p-3 bg-white border rounded shadow-sm">
+                <div class="d-flex justify-content-between">
+                    <strong>@(review.Guest?.FullName ?? "Anonymous Guest")</strong>
+                    <small class="text-muted">@review.CreatedAt.ToShortDateString()</small>
+                </div>
+                <div class="text-warning my-1">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <span>@(i <= review.Rating ? "★" : "☆")</span>
+                    }
+                </div>
+                <p class="text-secondary mt-2 mb-0">@review.Comment</p>
+            </div>
+        }
+    }
 
-<a asp-action="MyBookings" asp-controller="Booking">Back to My Bookings</a>
+    <div class="mt-4">
+        <a asp-action="Index" asp-controller="Dish" asp-area="Host" class="btn btn-outline-secondary">
+            Back to My Dishes
+        </a>
+    </div>
+</div>

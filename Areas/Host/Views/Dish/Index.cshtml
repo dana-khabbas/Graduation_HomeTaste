@@ -20,6 +20,16 @@
         @foreach (var dish in Model)
         {
             <tr>
+                <td>
+    @if (!string.IsNullOrEmpty(dish.DishPicturePath))
+    {
+        <img src="@dish.DishPicturePath" alt="@dish.Name" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;" />
+    }
+    else
+    {
+        <span>No Image</span>
+    }
+</td>
                 <td>@dish.Name</td>
                 <td>@dish.Price</td>
                 <td>@dish.ServesPersons</td>

@@ -13,7 +13,7 @@
     <p><strong>Serves:</strong> @ViewBag.Dish.ServesPersons persons</p>
 }
 
-<form asp-action="Create" method="post">
+<form asp-area="Guest" asp-controller="Booking" asp-action="Create" method="post">
     <input type="hidden" asp-for="DishId" />
     <div>
         <label asp-for="VisitDate"></label>

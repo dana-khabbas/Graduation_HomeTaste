@@ -1,0 +1,50 @@
+﻿@model IEnumerable<graduation_proj.Models.Review>
+
+@{
+    ViewData["Title"] = "All My Reviews";
+}
+
+<div class="container py-4">
+    <h2>All Reviews From Guests</h2>
+    <p class="text-muted">Here is what guests are saying about all your hosted experiences.</p>
+    <hr />
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">You haven't received any reviews yet.</div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var review in Model)
+            {
+                <div class="col-12 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title mb-1">@(review.Guest?.FullName ?? "Anonymous Guest")</h5>
+                                    <h6 class="text-warning mb-2">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <span>@(i <= review.Rating ? "★" : "☆")</span>
+                                        }
+                                        <span class="text-muted ms-1">(@review.Rating/5)</span>
+                                    </h6>
+                                </div>
+                                <span class="badge bg-secondary">@review.CreatedAt.ToShortDateString()</span>
+                            </div>
+
+                            <p class="mb-2">
+                                <small class="text-muted">Review for dish:</small>
+                                <strong class="text-dark">@review.Dish?.Name</strong>
+                            </p>
+
+                            <p class="card-text text-secondary italic">"@review.Comment"</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

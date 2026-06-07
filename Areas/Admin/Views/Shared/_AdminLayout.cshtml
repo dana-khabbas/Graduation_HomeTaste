@@ -48,34 +48,37 @@
                 <span class="material-symbols-outlined">dashboard</span>
                 <span>Dashboard</span>
             </a>
-            <a href="@Url.Action("Index", "Bookings", new { area = "Admin" })"
+            <a href="@Url.Action("ManageBookings", "Booking", new { area = "Host" })"
                class="adm-nav-link @(ViewData["ActivePage"]?.ToString() == "Bookings" ? "adm-nav-link--active" : "")">
                 <span class="material-symbols-outlined">calendar_today</span>
                 <span>Bookings</span>
             </a>
-            <a href="@Url.Action("Index", "Dishes", new { area = "Admin" })"
+
+            <a href="@Url.Action("Index", "Dish", new { area = "Host" })"
                class="adm-nav-link @(ViewData["ActivePage"]?.ToString() == "Dishes" ? "adm-nav-link--active" : "")">
                 <span class="material-symbols-outlined">restaurant_menu</span>
                 <span>Dishes</span>
             </a>
-            <a href="@Url.Action("Index", "Reviews", new { area = "Admin" })"
+
+            <a href="@Url.Action("Index", "Review", new { area = "Host" })"
                class="adm-nav-link @(ViewData["ActivePage"]?.ToString() == "Reviews" ? "adm-nav-link--active" : "")">
                 <span class="material-symbols-outlined">star</span>
                 <span>Reviews</span>
             </a>
-            <a href="@Url.Action("Index", "Settings", new { area = "Admin" })"
-               class="adm-nav-link @(ViewData["ActivePage"]?.ToString() == "Settings" ? "adm-nav-link--active" : "")">
-                <span class="material-symbols-outlined">settings</span>
-                <span>Settings</span>
-            </a>
+           
         </nav>
 
         <!-- Logout -->
         <div class="adm-sidebar-footer">
-            <a href="@Url.Action("Logout", "Account", new { area = "Admin" })" class="adm-nav-link">
-                <span class="material-symbols-outlined">logout</span>
-                <span>Logout</span>
-            </a>
+            <form asp-area="Identity" asp-page="/Account/Logout"
+                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"
+                  method="post" id="logoutForm" class="d-inline w-100">
+
+                <button type="submit" class="adm-nav-link border-0 bg-transparent w-100 text-start d-flex align-items-center gap-2" style="cursor: pointer;">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
 
     </aside>
@@ -94,13 +97,7 @@
                         <h5 class="adm-footer-brand">HomeTaste</h5>
                         <p class="adm-footer-text mt-3">A warm seat at every table.<br />Admin Control Panel v2.4.1</p>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <p class="adm-footer-heading">Internal Links</p>
-                        <div class="d-flex flex-column gap-2 mt-3">
-                            <a href="#" class="adm-footer-link">Safety Guidelines</a>
-                            <a href="#" class="adm-footer-link">Host Support</a>
-                        </div>
-                    </div>
+                   
                     <div class="col-6 col-md-3">
                         <p class="adm-footer-heading">Legal</p>
                         <div class="d-flex flex-column gap-2 mt-3">

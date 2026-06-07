@@ -18,73 +18,53 @@ namespace graduation_proj.Areas.Host.Controllers
             _userManager = userManager;
         }
 
-        // Guest: show booking form for a dish
-        public async Task<IActionResult> Create(int dishId)
-        {
-            var dish = await _context.Dishes.FindAsync(dishId);
-            if (dish == null) return NotFound();
-            ViewBag.Dish = dish;
-            return View();
-        }
-
-        // Guest: save booking
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Booking booking)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null) return RedirectToAction("Login", "Account", new { area = "Identity" });
-
-            booking.GuestId = user.Id;
-            booking.Status = BookingStatus.Pending;
-
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(MyBookings));
-        }
-
-        // Guest: view their bookings
-        public async Task<IActionResult> MyBookings()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null) return RedirectToAction("Login", "Account", new { area = "Identity" });
-
-            var bookings = await _context.Bookings
-                .Include(b => b.Dish)
-                .Where(b => b.GuestId == user.Id)
-                .ToListAsync();
-
-            return View(bookings);
-        }
-
-        // Guest: cancel a booking
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Cancel(int id)
-        {
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null) return NotFound();
-
-            booking.Status = BookingStatus.Cancelled;
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(MyBookings));
-        }
-
-        // Host: view bookings for their dishes
+        // GET: /Host/Booking/ManageBookings
+        // Displays bookings for dishes belonging exclusively to the logged-in Host
         public async Task<IActionResult> ManageBookings()
         {
-            return View(new List<graduation_proj.Models.Booking>());
+            // 1. Get current logged-in Host user
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account", new { area = "Identity" });
+
+            // 2. Fetch the Host Profile associated with this user
+            var hostProfile = await _context.HostProfiles
+                .FirstOrDefaultAsync(h => h.UserId == user.Id);
+
+            if (hostProfile == null)
+            {
+                // If they are logged in but haven't made a host profile, return an empty list or error
+                return View(new List<Booking>());
+            }
+
+            // 3. Find bookings linked to dishes where Dish.HostProfileId matches this Host
+            var hostBookings = await _context.Bookings
+                .Include(b => b.Dish)   // To show dish details (Name, Price)
+                .Include(b => b.Guest)  // To show guest details (FullName, Email)
+                .Where(b => b.Dish.HostProfileId == hostProfile.HostProfileId)
+                .OrderByDescending(b => b.VisitDate)
+                .ToListAsync();
+
+            return View(hostBookings);
         }
 
-        // Host: confirm a booking
+        // POST: /Host/Booking/Confirm/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Confirm(int id)
         {
-            var booking = await _context.Bookings.FindAsync(id);
+            var booking = await _context.Bookings
+                .Include(b => b.Dish)
+                .FirstOrDefaultAsync(b => b.BookingId == id);
+
             if (booking == null) return NotFound();
+
+            // Safety validation: verify this booking belongs to a dish owned by the current host
+            var user = await _userManager.GetUserAsync(User);
+            var hostProfile = await _context.HostProfiles.FirstOrDefaultAsync(h => h.UserId == user.Id);
+            if (hostProfile == null || booking.Dish.HostProfileId != hostProfile.HostProfileId)
+            {
+                return Unauthorized();
+            }
 
             booking.Status = BookingStatus.Confirmed;
             await _context.SaveChangesAsync();

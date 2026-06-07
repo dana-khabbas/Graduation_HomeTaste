@@ -1,0 +1,27 @@
+﻿@model graduation_proj.Models.Dish
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div>
+    @if (Model.DishPicturePath != null)
+    {
+        <img src="@Model.DishPicturePath" alt="@Model.Name" />
+    }
+
+    <h2>@Model.Name</h2>
+    <p><strong>Host:</strong> @Model.HostProfile?.User?.FullName</p>
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p><strong>Price:</strong> @Model.Price $</p>
+    <p><strong>Serves:</strong> @Model.ServesPersons persons</p>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="/guest/booking/create?dishId=@Model.DishId" class="btn btn-warning fw-bold">Book a Visit</a>
+    }
+    else
+    {
+        <a href="/Identity/Account/Login" class="btn btn-warning fw-bold">Login to Book</a>
+    }
+</div>

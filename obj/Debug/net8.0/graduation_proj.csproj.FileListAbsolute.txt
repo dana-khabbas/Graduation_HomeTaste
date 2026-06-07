@@ -263,3 +263,4 @@ C:\Users\HP\Desktop\orange coding school\asp.net core mvc\graduation_proj\obj\De
 C:\Users\HP\Desktop\orange coding school\asp.net core mvc\graduation_proj\obj\Debug\net8.0\graduation_proj.pdb
 C:\Users\HP\Desktop\orange coding school\asp.net core mvc\graduation_proj\obj\Debug\net8.0\graduation_proj.genruntimeconfig.cache
 C:\Users\HP\Desktop\orange coding school\asp.net core mvc\graduation_proj\obj\Debug\net8.0\ref\graduation_proj.dll
+C:\Users\HP\Desktop\orange coding school\asp.net core mvc\graduation_proj\obj\Debug\net8.0\graduation_proj.sourcelink.json
