@@ -71,5 +71,31 @@ namespace graduation_proj.Areas.Host.Controllers
 
             return RedirectToAction(nameof(ManageBookings));
         }
+
+        // POST: /Host/Booking/Deny/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Deny(int id)
+        {
+            var booking = await _context.Bookings
+                .Include(b => b.Dish)
+                .FirstOrDefaultAsync(b => b.BookingId == id);
+
+            if (booking == null) return NotFound();
+
+            // Safety validation: verify this booking belongs to a dish owned by the current host
+            var user = await _userManager.GetUserAsync(User);
+            var hostProfile = await _context.HostProfiles.FirstOrDefaultAsync(h => h.UserId == user.Id);
+            if (hostProfile == null || booking.Dish.HostProfileId != hostProfile.HostProfileId)
+            {
+                return Unauthorized();
+            }
+
+            // Denying simply marks the booking as Cancelled (it stays in the list)
+            booking.Status = BookingStatus.Cancelled;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ManageBookings));
+        }
     }
 }

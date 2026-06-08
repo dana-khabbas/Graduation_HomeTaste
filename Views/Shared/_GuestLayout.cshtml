@@ -17,35 +17,34 @@
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm px-4">
-        <a class="navbar-brand fw-bold" href="/">HomeTaste</a>
+    <nav class="navbar navbar-expand-lg shadow-sm px-4" style="background-color: var(--ht-primary-container);">
+        <a class="navbar-brand fw-bold text-white" href="/">HomeTaste</a>
         <div class="ms-auto d-flex gap-2">
             
             @if (User.Identity.IsAuthenticated)
             {
                 @if (User.IsInRole("Host"))
                 {
-                    <a href="/host/dish" class="btn btn-outline-secondary">My Dishes</a>
-                    <a href="/host/booking/managebookings" class="btn btn-outline-secondary">My Bookings</a>
+                    <a href="/host/dish" class="ht-nav-btn">Host Portal</a>
                 }
                 else
                 {
-                    <a href="/host/host/join" class="btn btn-outline-success">Join as Host</a>
-                    <a href="/guest/booking/mybookings" class="btn btn-outline-secondary">My Bookings</a>
+                    <a href="/host/host/join" class="ht-nav-btn">Join as Host</a>
+                    <a href="/guest/booking/mybookings" class="ht-nav-btn">My Bookings</a>
                 }
                 <!-- js-logout-form: the script at the bottom asks for confirmation first.
                      returnUrl = "/" sends the user to the guest home page after logout. -->
                 <form action="/Identity/Account/Logout" method="post" class="d-inline js-logout-form">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="returnUrl" value="/" />
-                    <button type="submit" class="btn btn-outline-danger">Logout</button>
+                    <button type="submit" class="ht-nav-btn">Logout</button>
                 </form>
             }
             else
             {
-                <a href="/host/host/join" class="btn btn-outline-success">Join as Host</a>
-                <a href="/Identity/Account/Login" class="btn btn-outline-secondary">Login</a>
-                <a href="/Identity/Account/Register" class="btn btn2 btn-warning fw-bold">Sign Up</a>
+                <a href="/host/host/join" class="ht-nav-btn">Join as Host</a>
+                <a href="/Identity/Account/Login" class="ht-nav-btn">Login</a>
+                <a href="/Identity/Account/Register" class="ht-nav-btn">Sign Up</a>
             }
         </div>
     </nav>
@@ -76,7 +75,7 @@
                     text: "You will need to log in again to book meals.",
                     icon: "question",
                     showCancelButton: true,
-                    confirmButtonColor: "#ff6b35",
+                    confirmButtonColor: "#D17132",
                     cancelButtonColor: "#8d7168",
                     confirmButtonText: "Yes, log out",
                     cancelButtonText: "Stay logged in"

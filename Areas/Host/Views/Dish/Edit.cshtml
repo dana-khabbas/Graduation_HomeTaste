@@ -1,43 +1,68 @@
 ﻿@model graduation_proj.Models.Dish
 
-<h2>Edit Dish</h2>
+@{
+    ViewData["Title"] = "Edit Dish";
+    ViewData["ActivePage"] = "Dishes";
+}
 
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
+<h1 class="adm-page-title">Edit Dish</h1>
+<p class="adm-page-subtitle mb-4">Update the details of your dish.</p>
 
-    <input type="hidden" asp-for="DishId" />
-    <input type="hidden" asp-for="HostProfileId" />
-    <input type="hidden" asp-for="DishPicturePath" />
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="adm-card">
 
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" required />
-        <span asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" required></textarea>
-        <span asp-validation-for="Description"></span>
-    </div>
-    <div>
-        <label asp-for="Price"></label>
-        <input asp-for="Price" type="number" step="0.01" required />
-        <span asp-validation-for="Price"></span>
-    </div>
-    <div>
-        <label asp-for="ServesPersons"></label>
-        <input asp-for="ServesPersons" type="number" min="1" required />
-        <span asp-validation-for="ServesPersons"></span>
-    </div>
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
 
-    <div>
-        <label>Change Dish Picture (Optional)</label>
-        <input type="file" name="dishPicture" accept="image/*" />
-        @if (!string.IsNullOrEmpty(Model.DishPicturePath))
-        {
-            <p>Current picture: <img src="@Model.DishPicturePath" width="100" /></p>
-        }
-    </div>
+                <!-- Hidden fields the controller needs to update the right record -->
+                <input type="hidden" asp-for="DishId" />
+                <input type="hidden" asp-for="HostProfileId" />
+                <input type="hidden" asp-for="DishPicturePath" />
 
-    <br />
-    <button type="submit">Save Changes</button>
-</form>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Name</label>
+                    <input asp-for="Name" class="form-control" required />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-bold">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" required></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label fw-bold">Price ($)</label>
+                    <input asp-for="Price" type="number" step="0.01" class="form-control" required />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ServesPersons" class="form-label fw-bold">Serves (Number of People)</label>
+                    <input asp-for="ServesPersons" type="number" min="1" class="form-control" required />
+                    <span asp-validation-for="ServesPersons" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Change Dish Picture (Optional)</label>
+                    <input type="file" name="dishPicture" accept="image/*" class="form-control" />
+
+                    <!-- Show the current picture so the host knows what they have now -->
+                    @if (!string.IsNullOrEmpty(Model.DishPicturePath))
+                    {
+                        <div class="mt-3">
+                            <span class="adm-dish-host text-uppercase d-block mb-1">Current picture</span>
+                            <img src="@Model.DishPicturePath" alt="@Model.Name" style="width:120px; height:120px; object-fit:cover; border-radius:8px;" />
+                        </div>
+                    }
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="adm-btn-primary">Save Changes</button>
+                    <a asp-action="Index" class="adm-btn-outline">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

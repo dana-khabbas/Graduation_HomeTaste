@@ -2,43 +2,60 @@
 
 @{
     ViewData["Title"] = "My Dishes";
+    ViewData["ActivePage"] = "Dishes"; // highlights "My Dishes" in the sidebar
 }
 
-<h2>My Dishes</h2>
-<a asp-action="Create">Add New Dish</a>
+<!-- Page header with the Add button on the right -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="adm-page-title">My Dishes</h1>
+        <p class="adm-page-subtitle mb-0">All the dishes you are hosting.</p>
+    </div>
+    <a asp-action="Create" class="adm-btn-primary">+ Add New Dish</a>
+</div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Serves</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var dish in Model)
-        {
-            <tr>
-                <td>
-    @if (!string.IsNullOrEmpty(dish.DishPicturePath))
-    {
-        <img src="@dish.DishPicturePath" alt="@dish.Name" style="width: 80px; height: 80px; object-fit: cover; border-radius: 4px;" />
-    }
-    else
-    {
-        <span>No Image</span>
-    }
-</td>
-                <td>@dish.Name</td>
-                <td>@dish.Price</td>
-                <td>@dish.ServesPersons</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@dish.DishId">Details</a>
-                    <a asp-action="Edit" asp-route-id="@dish.DishId">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@dish.DishId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (!Model.Any())
+{
+    <div class="adm-card text-center">
+        <p class="adm-page-subtitle mb-0">You have no dishes yet. Click "Add New Dish" to create one.</p>
+    </div>
+}
+else
+{
+    <div class="adm-card">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr class="adm-dish-host text-uppercase">
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Serves</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dish in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="adm-dish-thumb">
+                                @if (!string.IsNullOrEmpty(dish.DishPicturePath))
+                                {
+                                    <img src="@dish.DishPicturePath" alt="@dish.Name" />
+                                }
+                            </div>
+                        </td>
+                        <td class="fw-bold">@dish.Name</td>
+                        <td>$@dish.Price</td>
+                        <td>@dish.ServesPersons</td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@dish.DishId" class="adm-btn-outline btn-sm">Details</a>
+                            <a asp-action="Edit" asp-route-id="@dish.DishId" class="adm-btn-outline btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@dish.DishId" class="adm-btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

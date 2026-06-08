@@ -9,6 +9,10 @@
         public int ServesPersons { get; set; }
         public string? DishPicturePath { get; set; }
 
+        // How many times this dish was booked (stored as its own database column).
+        // It starts at 0 and goes up by 1 each time a guest books this dish.
+        public int TimesBooked { get; set; } = 0;
+
         // Foreign key to HostProfile
         public int HostProfileId { get; set; }
         public HostProfile HostProfile { get; set; }

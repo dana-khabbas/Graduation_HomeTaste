@@ -4,37 +4,59 @@
     ViewData["Title"] = "Join as Host";
 }
 
-<h2>Join as Host</h2>
-<div asp-validation-summary="All" class="text-danger"></div>
-<form asp-action="Join" method="post" enctype="multipart/form-data">
-    <div>
-        <label asp-for="Country"></label>
-        <input asp-for="Country" />
-        <span asp-validation-for="Country"></span>
+<!-- Page header -->
+<h1 class="adm-page-title">Join as Host</h1>
+<p class="adm-page-subtitle mb-4">Tell guests about you and open your kitchen.</p>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="adm-card">
+
+            <!-- Shows validation errors if the form is not filled correctly -->
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <form asp-action="Join" method="post" enctype="multipart/form-data">
+
+                <div class="mb-3">
+                    <label asp-for="Country" class="form-label fw-bold">Country</label>
+                    <input asp-for="Country" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="City" class="form-label fw-bold">City</label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Location" class="form-label fw-bold">Location</label>
+                    <input asp-for="Location" class="form-control" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label fw-bold">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Bio" class="form-label fw-bold">Bio</label>
+                    <textarea asp-for="Bio" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Bio" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <!-- Personal photo so guests can see the host.
+                         Field name stays "PlacePicture" so the controller still saves it. -->
+                    <label class="form-label fw-bold">Your Personal Photo</label>
+                    <input type="file" name="PlacePicture" accept="image/*" class="form-control" />
+                </div>
+
+                <button type="submit" class="adm-btn-primary">Join Now</button>
+            </form>
+
+        </div>
     </div>
-    <div>
-        <label asp-for="City"></label>
-        <input asp-for="City" />
-        <span asp-validation-for="City"></span>
-    </div>
-    <div>
-        <label asp-for="Location"></label>
-        <input asp-for="Location" />
-        <span asp-validation-for="Location"></span>
-    </div>
-    <div>
-        <label asp-for="PhoneNumber"></label>
-        <input asp-for="PhoneNumber" />
-        <span asp-validation-for="PhoneNumber"></span>
-    </div>
-    <div>
-        <label asp-for="Bio"></label>
-        <textarea asp-for="Bio"></textarea>
-        <span asp-validation-for="Bio"></span>
-    </div>
-    <div>
-        <label>Picture of your place</label>
-        <input type="file" name="PlacePicture" accept="image/*" />
-    </div>
-    <button type="submit">Join Now</button>
-</form>
+</div>

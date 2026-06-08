@@ -57,13 +57,12 @@
 
                 <div class="row g-4 align-items-center">
 
-                    <!-- Host place photo (only shown if the host uploaded one) -->
+                    <!-- Host personal photo (only shown if the host uploaded one) -->
                     @if (Model.HostProfile?.PlacePicturePath != null)
                     {
-                        <div class="col-12 col-md-4">
-                            <div class="ht-card-img-wrap" style="border-radius:12px; aspect-ratio:4/3;">
-                                <img src="@Model.HostProfile.PlacePicturePath" alt="Host place" class="ht-card-img" />
-                            </div>
+                        <div class="col-12 col-md-4 text-center">
+                            <img src="@Model.HostProfile.PlacePicturePath" alt="@Model.HostProfile?.User?.FullName"
+                                 style="width:140px; height:140px; object-fit:cover; border-radius:50%;" />
                         </div>
                     }
 

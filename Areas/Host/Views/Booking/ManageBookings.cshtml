@@ -2,49 +2,76 @@
 
 @{
     ViewData["Title"] = "Manage Bookings";
+    ViewData["ActivePage"] = "Bookings"; // highlights "Bookings" in the sidebar
 }
 
-<h2>Manage Bookings</h2>
+<h1 class="adm-page-title">Manage Bookings</h1>
+<p class="adm-page-subtitle mb-4">Accept or deny the visits guests request.</p>
 
 @if (!Model.Any())
 {
-    <p>No bookings yet.</p>
+    <div class="adm-card text-center">
+        <p class="adm-page-subtitle mb-0">No bookings yet.</p>
+    </div>
 }
 else
 {
-    <table>
-        <thead>
-            <tr>
-                <th>Guest</th>
-                <th>Dish</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Persons</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var booking in Model)
-            {
-                <tr>
-                    <td>@booking.Guest?.FullName</td>
-                    <td>@booking.Dish?.Name</td>
-                    <td>@booking.VisitDate.ToShortDateString()</td>
-                    <td>@booking.VisitTime</td>
-                    <td>@booking.NumberOfPersons</td>
-                    <td>@booking.Status</td>
-                    <td>
-                        @if (booking.Status == graduation_proj.Models.BookingStatus.Pending)
-                        {
-                            <form asp-action="Confirm" method="post">
-                                <input type="hidden" name="id" value="@booking.BookingId" />
-                                <button type="submit">Confirm</button>
-                            </form>
-                        }
-                    </td>
+    <div class="adm-card">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr class="adm-dish-host text-uppercase">
+                    <th>Guest</th>
+                    <th>Dish</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Persons</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@booking.Guest?.FullName</td>
+                        <td>@booking.Dish?.Name</td>
+                        <td>@booking.VisitDate.ToShortDateString()</td>
+                        <td>@booking.VisitTime</td>
+                        <td>@booking.NumberOfPersons</td>
+                        <td>
+                            <!-- Colour the status so it is easy to read -->
+                            @if (booking.Status == graduation_proj.Models.BookingStatus.Confirmed)
+                            {
+                                <span class="badge bg-success">Confirmed</span>
+                            }
+                            else if (booking.Status == graduation_proj.Models.BookingStatus.Cancelled)
+                            {
+                                <span class="badge bg-secondary">Denied</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <!-- Accept / Deny only make sense while the booking is still pending -->
+                            @if (booking.Status == graduation_proj.Models.BookingStatus.Pending)
+                            {
+                                <div class="d-inline-flex gap-2">
+                                    <form asp-action="Confirm" method="post">
+                                        <input type="hidden" name="id" value="@booking.BookingId" />
+                                        <button type="submit" class="adm-btn-primary btn-sm">Accept</button>
+                                    </form>
+                                    <form asp-action="Deny" method="post">
+                                        <input type="hidden" name="id" value="@booking.BookingId" />
+                                        <button type="submit" class="adm-btn-danger btn-sm">Deny</button>
+                                    </form>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }

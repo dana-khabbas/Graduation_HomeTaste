@@ -2,39 +2,46 @@
 
 @{
     ViewData["Title"] = $"Reviews for {ViewBag.DishName}";
+    ViewData["ActivePage"] = "Reviews";
 }
 
-<div class="container py-4">
-    <h2>Reviews for: <span class="text-primary">@ViewBag.DishName</span></h2>
-    <hr />
+<h1 class="adm-page-title">Reviews for @ViewBag.DishName</h1>
+<p class="adm-page-subtitle mb-4">Only the reviews for this one dish.</p>
 
-    @if (!Model.Any())
-    {
-        <div class="alert alert-light border">No reviews have been left for this dish yet.</div>
-    }
-    else
-    {
+@if (!Model.Any())
+{
+    <div class="adm-card text-center">
+        <p class="adm-page-subtitle mb-0">No reviews have been left for this dish yet.</p>
+    </div>
+}
+else
+{
+    <div class="row g-3">
         @foreach (var review in Model)
         {
-            <div class="mb-3 p-3 bg-white border rounded shadow-sm">
-                <div class="d-flex justify-content-between">
-                    <strong>@(review.Guest?.FullName ?? "Anonymous Guest")</strong>
-                    <small class="text-muted">@review.CreatedAt.ToShortDateString()</small>
+            <div class="col-12">
+                <div class="adm-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <!-- Reviewer name -->
+                        <h5 class="adm-card-title mb-0">@(review.Guest?.FullName ?? "Anonymous Guest")</h5>
+                        <span class="badge bg-secondary">@review.CreatedAt.ToShortDateString()</span>
+                    </div>
+
+                    <!-- Star rating -->
+                    <div class="text-warning my-1">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <span>@(i <= review.Rating ? "★" : "☆")</span>
+                        }
+                    </div>
+
+                    <p class="mb-0 fst-italic">"@review.Comment"</p>
                 </div>
-                <div class="text-warning my-1">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <span>@(i <= review.Rating ? "★" : "☆")</span>
-                    }
-                </div>
-                <p class="text-secondary mt-2 mb-0">@review.Comment</p>
             </div>
         }
-    }
-
-    <div class="mt-4">
-        <a asp-action="Index" asp-controller="Dish" asp-area="Host" class="btn btn-outline-secondary">
-            Back to My Dishes
-        </a>
     </div>
+}
+
+<div class="mt-4">
+    <a asp-action="Index" asp-controller="Dish" asp-area="Host" class="adm-btn-outline">Back to My Dishes</a>
 </div>

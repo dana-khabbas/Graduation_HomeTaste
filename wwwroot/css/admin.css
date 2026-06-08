@@ -6,7 +6,7 @@
 /* ---------- CSS Variables ---------- */
 :root {
     --adm-primary: #ab3500;
-    --adm-primary-container: #ff6b35;
+    --adm-primary-container: #D17132;
     --adm-surface: #faf9f9;
     --adm-surface-container: #efeeed;
     --adm-surface-low: #f4f3f3;
@@ -534,6 +534,61 @@ body {
 
     .adm-btn-view-all:hover {
         background-color: var(--adm-surface-container);
+    }
+
+/* ---------- Buttons (shared by Host + Admin pages) ---------- */
+.adm-btn-primary {
+    display: inline-block;
+    background-color: var(--adm-primary-container);
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 9999px;
+    padding: 8px 24px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+    /* Keep the orange background on hover (Bootstrap otherwise makes it transparent) */
+    .adm-btn-primary:hover {
+        background-color: var(--adm-primary-container);
+        color: #fff;
+        opacity: 0.9;
+    }
+
+.adm-btn-outline {
+    display: inline-block;
+    background: transparent;
+    color: var(--adm-on-surface-var);
+    border: 1px solid var(--adm-outline);
+    border-radius: 9999px;
+    padding: 8px 24px;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+    .adm-btn-outline:hover {
+        background-color: var(--adm-primary-container);
+        color: #fff;
+        border-color: var(--adm-primary-container);
+    }
+
+.adm-btn-danger {
+    display: inline-block;
+    background-color: #b3261e;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 9999px;
+    padding: 8px 24px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+    .adm-btn-danger:hover {
+        background-color: #b3261e;
+        color: #fff;
+        opacity: 0.9;
     }
 
 /* ---------- Footer ---------- */

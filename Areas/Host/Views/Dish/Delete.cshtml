@@ -2,16 +2,38 @@
 
 @{
     ViewData["Title"] = "Delete Dish";
+    ViewData["ActivePage"] = "Dishes";
 }
 
-<h2>Are you sure you want to delete this dish?</h2>
+<h1 class="adm-page-title">Delete Dish</h1>
+<p class="adm-page-subtitle mb-4">This action cannot be undone.</p>
 
-<p>@Model.Name</p>
-<p>@Model.Description</p>
-<p>@Model.Price</p>
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-6">
+        <div class="adm-card">
 
-<form asp-action="Delete">
-    <input type="hidden" asp-for="DishId" />
-    <button type="submit">Yes, Delete</button>
-    <a asp-action="Index">Cancel</a>
-</form>
+            <p class="mb-2">Are you sure you want to delete this dish?</p>
+
+            <!-- Show the dish we are about to delete -->
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="adm-dish-thumb">
+                    @if (!string.IsNullOrEmpty(Model.DishPicturePath))
+                    {
+                        <img src="@Model.DishPicturePath" alt="@Model.Name" />
+                    }
+                </div>
+                <div>
+                    <p class="adm-dish-name">@Model.Name</p>
+                    <p class="adm-dish-host mb-0">$@Model.Price</p>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post" class="d-flex gap-2">
+                <input type="hidden" asp-for="DishId" />
+                <button type="submit" class="adm-btn-danger">Yes, Delete</button>
+                <a asp-action="Index" class="adm-btn-outline">Cancel</a>
+            </form>
+
+        </div>
+    </div>
+</div>

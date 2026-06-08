@@ -17,47 +17,51 @@
             Taste authentic homemade food from locals around the world
         </h1>
 
-        <!-- Search Bar -->
-        <div class="ht-search-bar mx-auto">
+        <!-- Search Bar: a GET form that sends the chosen filters to the Index action.
+             The dropdown options below are built from the database (ViewBag). -->
+        <form asp-area="Guest" asp-controller="Home" asp-action="Index" method="get" class="ht-search-bar mx-auto">
             <div class="row g-0 align-items-center h-100">
 
                 <div class="col-12 col-md d-flex flex-column px-3 py-2 ht-search-field border-end">
                     <label class="ht-search-label">COUNTRY</label>
-                    <select class="ht-search-select">
+                    <select name="country" class="ht-search-select">
                         <option>Anywhere</option>
-                        <option>Italy</option>
-                        <option>Thailand</option>
-                        <option>Mexico</option>
+                        @foreach (var c in ViewBag.Countries)
+                        {
+                            <option selected="@(ViewBag.SelectedCountry == c ? "selected" : null)">@c</option>
+                        }
                     </select>
                 </div>
 
                 <div class="col-12 col-md d-flex flex-column px-3 py-2 ht-search-field border-end">
                     <label class="ht-search-label">CITY</label>
-                    <select class="ht-search-select">
+                    <select name="city" class="ht-search-select">
                         <option>All Cities</option>
-                        <option>Rome</option>
-                        <option>Bangkok</option>
-                        <option>Oaxaca</option>
+                        @foreach (var c in ViewBag.Cities)
+                        {
+                            <option selected="@(ViewBag.SelectedCity == c ? "selected" : null)">@c</option>
+                        }
                     </select>
                 </div>
 
                 <div class="col-12 col-md d-flex flex-column px-3 py-2 ht-search-field">
                     <label class="ht-search-label">GUESTS</label>
-                    <select class="ht-search-select">
-                        <option>1 Guest</option>
-                        <option>2 Guests</option>
-                        <option>4+ Guests</option>
+                    <select name="guests" class="ht-search-select">
+                        <option value="">Any</option>
+                        <option value="1" selected="@(ViewBag.SelectedGuests == 1 ? "selected" : null)">1 Guest</option>
+                        <option value="2" selected="@(ViewBag.SelectedGuests == 2 ? "selected" : null)">2 Guests</option>
+                        <option value="4" selected="@(ViewBag.SelectedGuests == 4 ? "selected" : null)">4+ Guests</option>
                     </select>
                 </div>
 
                 <div class="col-auto px-3">
-                    <button class="btn ht-search-btn">
+                    <button type="submit" class="btn ht-search-btn">
                         <span class="material-symbols-outlined">search</span>
                     </button>
                 </div>
 
             </div>
-        </div>
+        </form>
     </div>
 </section>
 
@@ -74,14 +78,30 @@
         <div class="d-flex align-items-center gap-3">
             <span class="ht-sort-label">SORT BY</span>
             <div class="d-flex gap-2 flex-wrap">
-                <button class="btn ht-sort-btn ht-sort-btn--active">Most Booked</button>
-                <button class="btn ht-sort-btn">Price</button>
-                <button class="btn ht-sort-btn">Rating</button>
+                <!-- Each sort link keeps the current search filters and just changes the sort -->
+                <a asp-area="Guest" asp-controller="Home" asp-action="Index"
+                   asp-route-country="@ViewBag.SelectedCountry" asp-route-city="@ViewBag.SelectedCity"
+                   asp-route-guests="@ViewBag.SelectedGuests" asp-route-sort="most"
+                   class="btn ht-sort-btn @(ViewBag.Sort != "price" && ViewBag.Sort != "rating" ? "ht-sort-btn--active" : "")">Most Booked</a>
+
+                <a asp-area="Guest" asp-controller="Home" asp-action="Index"
+                   asp-route-country="@ViewBag.SelectedCountry" asp-route-city="@ViewBag.SelectedCity"
+                   asp-route-guests="@ViewBag.SelectedGuests" asp-route-sort="price"
+                   class="btn ht-sort-btn @(ViewBag.Sort == "price" ? "ht-sort-btn--active" : "")">Price</a>
+
+                <a asp-area="Guest" asp-controller="Home" asp-action="Index"
+                   asp-route-country="@ViewBag.SelectedCountry" asp-route-city="@ViewBag.SelectedCity"
+                   asp-route-guests="@ViewBag.SelectedGuests" asp-route-sort="rating"
+                   class="btn ht-sort-btn @(ViewBag.Sort == "rating" ? "ht-sort-btn--active" : "")">Rating</a>
             </div>
         </div>
     </div>
 
     <!-- Cards Grid -->
+    @if (!Model.Any())
+    {
+        <p class="ht-section-subtitle">No dishes match your search. Try different options.</p>
+    }
     <div class="row g-4">
     @foreach (var dish in Model)
     {
@@ -103,6 +123,7 @@
                         <span class="ht-card-price">$@dish.Price</span>
                     </div>
                     <p class="ht-card-location">@dish.HostProfile?.City • @dish.ServesPersons Guests max</p>
+                    <p class="ht-card-location">Booked @dish.TimesBooked times</p>
                     <a href="/guest/home/dishdetails/@dish.DishId" class="btn btn-warning btn-sm mt-2">View Dish</a>
                 </div>
             </div>
@@ -128,8 +149,8 @@
                 </div>
                 <!-- Quote Card -->
                 <div class="ht-quote-card">
-                    <p class="ht-quote-text">"I love sharing my grandmother's recipes with the world."</p>
-                    <p class="ht-quote-author">— Maria, Host in Florence</p>
+                    <p class="ht-quote-text">"The act of preparing food and feeding others is the most fundamental of all human behaviors."</p>
+                    <p class="ht-quote-author">— Charlie Trotter</p>
                 </div>
             </div>
 
@@ -154,9 +175,19 @@
                         Insurance and 24/7 host support
                     </li>
                 </ul>
-                <a asp-area="Host" asp-controller="Host" asp-action="Join" class="btn ht-btn-primary ht-btn-lg">
-                Start Your Hosting Journey
-                </a>
+                @if (User.IsInRole("Host"))
+                {
+                    <!-- Already a host: go straight to the host portal -->
+                    <a asp-area="Host" asp-controller="Dish" asp-action="Index" class="btn ht-btn-primary ht-btn-lg">
+                        Start Your Hosting Journey
+                    </a>
+                }
+                else
+                {
+                    <a asp-area="Host" asp-controller="Host" asp-action="Join" class="btn ht-btn-primary ht-btn-lg">
+                        Start Your Hosting Journey
+                    </a>
+                }
             </div>
 
         </div>

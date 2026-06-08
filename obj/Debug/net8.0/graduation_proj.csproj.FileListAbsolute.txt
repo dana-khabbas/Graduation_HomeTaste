@@ -526,7 +526,6 @@ C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\staticwebassets
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\swae.build.ex.cache
-C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\graduati.75D386E5.Up2Date
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\graduation_proj.dll
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\refint\graduation_proj.dll

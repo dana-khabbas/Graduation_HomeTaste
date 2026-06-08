@@ -40,6 +40,14 @@ namespace graduation_proj.Areas.Guest.Controllers
             booking.Status = BookingStatus.Pending;
 
             _context.Bookings.Add(booking);
+
+            // Count this booking on the dish (increase the TimesBooked column by 1)
+            var dish = await _context.Dishes.FindAsync(booking.DishId);
+            if (dish != null)
+            {
+                dish.TimesBooked++;
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(MyBookings));

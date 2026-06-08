@@ -7,7 +7,7 @@
 /* ---------- CSS Variables (Color Tokens) ---------- */
 :root {
     --ht-primary: #ab3500;
-    --ht-primary-container: #ff6b35;
+    --ht-primary-container: #D17132;
     --ht-surface: #faf9f9;
     --ht-surface-container: #efeeed;
     --ht-surface-low: #f4f3f3;
@@ -63,6 +63,24 @@ body {
         color: var(--ht-primary);
         border-bottom: 2px solid var(--ht-primary);
         padding-bottom: 4px;
+    }
+
+/* ---------- Navbar Buttons (white text on the orange navbar) ---------- */
+.ht-nav-btn {
+    color: #fff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 9999px;
+    padding: 8px 20px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+    /* On hover: white background with orange text */
+    .ht-nav-btn:hover {
+        background-color: #fff;
+        color: var(--ht-primary-container);
     }
 
 /* ---------- Buttons ---------- */

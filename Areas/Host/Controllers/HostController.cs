@@ -20,8 +20,17 @@ namespace graduation_proj.Areas.Host.Controllers
 
         // Show join as host form
         [Authorize]
-        public IActionResult Join()
+        public async Task<IActionResult> Join()
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            // If the user already has a host profile, they are already a host.
+            // Send them to their dishes instead of showing the join form again.
+            if (user != null && _context.HostProfiles.Any(h => h.UserId == user.Id))
+            {
+                return RedirectToAction("Index", "Dish", new { area = "Host" });
+            }
+
             return View();
         }
 
@@ -34,6 +43,12 @@ namespace graduation_proj.Areas.Host.Controllers
             // 1. Get the current logged-in user details instantly
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account", new { area = "" });
+
+            // If they already have a host profile, don't let them create a second one
+            if (_context.HostProfiles.Any(h => h.UserId == user.Id))
+            {
+                return RedirectToAction("Index", "Dish", new { area = "Host" });
+            }
 
             // 2. Set the foreign key BEFORE validation processing happens
             model.UserId = user.Id;

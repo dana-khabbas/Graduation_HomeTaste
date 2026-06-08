@@ -2,49 +2,46 @@
 
 @{
     ViewData["Title"] = "All My Reviews";
+    ViewData["ActivePage"] = "Reviews"; // highlights "Reviews" in the sidebar
 }
 
-<div class="container py-4">
-    <h2>All Reviews From Guests</h2>
-    <p class="text-muted">Here is what guests are saying about all your hosted experiences.</p>
-    <hr />
+<h1 class="adm-page-title">Reviews From Guests</h1>
+<p class="adm-page-subtitle mb-4">Here is what guests are saying about your dishes.</p>
 
-    @if (!Model.Any())
-    {
-        <div class="alert alert-info">You haven't received any reviews yet.</div>
-    }
-    else
-    {
-        <div class="row">
-            @foreach (var review in Model)
-            {
-                <div class="col-12 mb-3">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h5 class="card-title mb-1">@(review.Guest?.FullName ?? "Anonymous Guest")</h5>
-                                    <h6 class="text-warning mb-2">
-                                        @for (int i = 1; i <= 5; i++)
-                                        {
-                                            <span>@(i <= review.Rating ? "★" : "☆")</span>
-                                        }
-                                        <span class="text-muted ms-1">(@review.Rating/5)</span>
-                                    </h6>
-                                </div>
-                                <span class="badge bg-secondary">@review.CreatedAt.ToShortDateString()</span>
+@if (!Model.Any())
+{
+    <div class="adm-card text-center">
+        <p class="adm-page-subtitle mb-0">You haven't received any reviews yet.</p>
+    </div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var review in Model)
+        {
+            <div class="col-12">
+                <div class="adm-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <!-- Reviewer name -->
+                            <h5 class="adm-card-title mb-1">@(review.Guest?.FullName ?? "Anonymous Guest")</h5>
+
+                            <!-- Star rating -->
+                            <div class="text-warning mb-2">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <span>@(i <= review.Rating ? "★" : "☆")</span>
+                                }
+                                <span class="adm-dish-host ms-1">(@review.Rating/5)</span>
                             </div>
-
-                            <p class="mb-2">
-                                <small class="text-muted">Review for dish:</small>
-                                <strong class="text-dark">@review.Dish?.Name</strong>
-                            </p>
-
-                            <p class="card-text text-secondary italic">"@review.Comment"</p>
                         </div>
+                        <span class="badge bg-secondary">@review.CreatedAt.ToShortDateString()</span>
                     </div>
+
+                    <p class="adm-dish-host text-uppercase mb-1">Review for: @review.Dish?.Name</p>
+                    <p class="mb-0 fst-italic">"@review.Comment"</p>
                 </div>
-            }
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
+}
