@@ -10,7 +10,7 @@
         "projectUniqueName": "C:\\Users\\User\\source\\repos\\Graduation_HomeTaste\\graduation_proj.csproj",
         "projectName": "graduation_proj",
         "projectPath": "C:\\Users\\User\\source\\repos\\Graduation_HomeTaste\\graduation_proj.csproj",
-        "packagesPath": "C:\\Users\\User\\AppData\\Local\\Temp\\cursor-sandbox-cache\\e649aae65e2569ba521539b3bc510a75\\nuget",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\User\\source\\repos\\Graduation_HomeTaste\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [

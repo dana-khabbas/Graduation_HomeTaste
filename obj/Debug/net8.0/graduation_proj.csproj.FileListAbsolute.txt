@@ -532,3 +532,4 @@ C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\refint\graduati
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\graduation_proj.pdb
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\graduation_proj.genruntimeconfig.cache
 C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\ref\graduation_proj.dll
+C:\Users\User\source\repos\Graduation_HomeTaste\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
