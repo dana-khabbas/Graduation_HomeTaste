@@ -26,6 +26,15 @@ namespace graduation_proj.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
+
+            [Required]
+            [Phone]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
+
+            [Required]
             [EmailAddress]
             public string Email { get; set; }
 
@@ -52,7 +61,13 @@ namespace graduation_proj.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 // Create the new account using email as the username
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FullName = Input.FullName,
+                    PhoneNumber = Input.PhoneNumber
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
