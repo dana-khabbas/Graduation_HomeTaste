@@ -2,34 +2,89 @@
 
 @{
     ViewData["Title"] = "Book a Visit";
+    // Use the public guest layout
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
 }
 
-<h2>Book a Visit</h2>
+<section class="container-xl px-4 py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
 
-@if (ViewBag.Dish != null)
-{
-    <p><strong>Dish:</strong> @ViewBag.Dish.Name</p>
-    <p><strong>Price:</strong> @ViewBag.Dish.Price</p>
-    <p><strong>Serves:</strong> @ViewBag.Dish.ServesPersons persons</p>
-}
+            <!-- White card that holds the booking form -->
+            <div class="ht-card p-4 p-md-5">
 
-<form asp-area="Guest" asp-controller="Booking" asp-action="Create" method="post">
-    <input type="hidden" asp-for="DishId" />
-    <div>
-        <label asp-for="VisitDate"></label>
-        <input asp-for="VisitDate" type="date" />
-        <span asp-validation-for="VisitDate"></span>
+                <h2 class="ht-section-title mb-1">Book a Visit</h2>
+                <p class="ht-section-subtitle mb-4">Pick your date, time and number of guests.</p>
+
+                <!-- Show the dish we are booking (comes from the controller via ViewBag) -->
+                @if (ViewBag.Dish != null)
+                {
+                    <div class="ht-host-promo p-3 rounded mb-4">
+                        <p class="mb-1 fw-bold">@ViewBag.Dish.Name</p>
+                        <p class="ht-card-location mb-0">
+                            $@ViewBag.Dish.Price • Serves @ViewBag.Dish.ServesPersons persons
+                        </p>
+                    </div>
+                }
+
+                <form asp-area="Guest" asp-controller="Booking" asp-action="Create" method="post">
+                    <input type="hidden" asp-for="DishId" />
+
+                    <div class="mb-3">
+                        <label asp-for="VisitDate" class="form-label fw-bold">Visit Date</label>
+                        <!-- min = today so past dates cannot be picked -->
+                        <input asp-for="VisitDate" type="date" class="form-control" required
+                               min="@DateTime.Now.ToString("yyyy-MM-dd")" id="visitDate" />
+                        <span asp-validation-for="VisitDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="VisitTime" class="form-label fw-bold">Visit Time</label>
+                        <input asp-for="VisitTime" type="time" class="form-control" required id="visitTime" />
+                        <span asp-validation-for="VisitTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="NumberOfPersons" class="form-label fw-bold">Number of Persons</label>
+                        <input asp-for="NumberOfPersons" type="number" min="1" class="form-control" required />
+                        <span asp-validation-for="NumberOfPersons" class="text-danger"></span>
+                    </div>
+
+                    <!-- Buttons: confirm (orange) and cancel (outline) -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn ht-btn-primary">Confirm Booking</button>
+                        <a asp-action="MyBookings" class="btn ht-btn-outline">Cancel</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="VisitTime"></label>
-        <input asp-for="VisitTime" type="time" />
-        <span asp-validation-for="VisitTime"></span>
-    </div>
-    <div>
-        <label asp-for="NumberOfPersons"></label>
-        <input asp-for="NumberOfPersons" type="number" min="1" />
-        <span asp-validation-for="NumberOfPersons"></span>
-    </div>
-    <button type="submit">Confirm Booking</button>
-    <a asp-action="MyBookings">Cancel</a>
-</form>
+</section>
+
+<script>
+    // Stop the user from picking a time that has already passed today.
+    (function () {
+        var dateInput = document.getElementById("visitDate");
+        var timeInput = document.getElementById("visitTime");
+
+        function updateTimeLimit() {
+            var today = new Date();
+            // Build today's date as text (yyyy-mm-dd) to compare with the picked date
+            var todayText = today.toISOString().split("T")[0];
+
+            if (dateInput.value === todayText) {
+                // If the visit is today, the earliest time is the current time
+                var hours = String(today.getHours()).padStart(2, "0");
+                var minutes = String(today.getMinutes()).padStart(2, "0");
+                timeInput.min = hours + ":" + minutes;
+            } else {
+                // Any future date can use any time
+                timeInput.removeAttribute("min");
+            }
+        }
+
+        dateInput.addEventListener("change", updateTimeLimit);
+        updateTimeLimit();
+    })();
+</script>

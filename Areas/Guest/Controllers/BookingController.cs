@@ -71,7 +71,8 @@ namespace graduation_proj.Areas.Guest.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (booking.GuestId != user?.Id) return Unauthorized();
 
-            booking.Status = BookingStatus.Cancelled;
+            // Remove the whole booking record from the database
+            _context.Bookings.Remove(booking);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(MyBookings));

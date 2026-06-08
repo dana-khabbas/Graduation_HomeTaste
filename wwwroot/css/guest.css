@@ -79,7 +79,9 @@ body {
     transition: opacity 0.2s, transform 0.1s;
 }
 
+    /* Keep the orange background on hover (Bootstrap otherwise makes it transparent) */
     .ht-btn-primary:hover {
+        background-color: var(--ht-primary-container);
         opacity: 0.9;
         color: #fff;
     }
@@ -107,9 +109,11 @@ body {
     text-decoration: none;
 }
 
+    /* Solid orange fill + white text on hover so the button stays clearly visible */
     .ht-btn-outline:hover {
-        background-color: var(--ht-surface-container);
-        color: var(--ht-on-surface);
+        background-color: var(--ht-primary-container);
+        color: #fff;
+        border-color: var(--ht-primary-container);
     }
 
 .ht-btn-discover {

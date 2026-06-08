@@ -2,26 +2,103 @@
 
 @{
     ViewData["Title"] = @Model.Name;
+    // Use the public guest layout (same one the home page uses)
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
 }
 
-<div>
-    @if (Model.DishPicturePath != null)
-    {
-        <img src="@Model.DishPicturePath" alt="@Model.Name" />
-    }
+<section class="container-xl px-4 py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9">
 
-    <h2>@Model.Name</h2>
-    <p><strong>Host:</strong> @Model.HostProfile?.User?.FullName</p>
-    <p><strong>Description:</strong> @Model.Description</p>
-    <p><strong>Price:</strong> @Model.Price $</p>
-    <p><strong>Serves:</strong> @Model.ServesPersons persons</p>
+            <!-- ===== DISH PHOTO (rectangular banner at the top) ===== -->
+            <div class="ht-card-img-wrap mb-4" style="border-radius:16px; aspect-ratio:16/7;">
+                @if (Model.DishPicturePath != null)
+                {
+                    <img src="@Model.DishPicturePath" alt="@Model.Name" class="ht-card-img" />
+                }
+                else
+                {
+                    <!-- Simple grey box when there is no picture -->
+                    <div style="width:100%; height:100%; background:#f0f0f0;"></div>
+                }
+            </div>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        <a href="/guest/booking/create?dishId=@Model.DishId" class="btn btn-warning fw-bold">Book a Visit</a>
-    }
-    else
-    {
-        <a href="/Identity/Account/Login" class="btn btn-warning fw-bold">Login to Book</a>
-    }
-</div>
+            <!-- ===== DISH DETAILS ===== -->
+            <div class="ht-card p-4 p-md-5 mb-4">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h1 class="ht-promo-title mb-0">@Model.Name</h1>
+                    <span class="ht-card-price" style="font-size:24px;">$@Model.Price</span>
+                </div>
+
+                <p class="ht-section-subtitle mb-4">@Model.Description</p>
+
+                <!-- Small list of dish facts -->
+                <ul class="list-unstyled ht-benefit-list mb-4">
+                    <li>
+                        <span class="material-symbols-outlined ht-check-icon">group</span>
+                        Serves @Model.ServesPersons persons
+                    </li>
+                </ul>
+
+                <!-- Booking button: changes depending on login state -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/guest/booking/create?dishId=@Model.DishId" class="btn ht-btn-primary ht-btn-lg">Book a Visit</a>
+                }
+                else
+                {
+                    <a href="/Identity/Account/Login" class="btn ht-btn-primary ht-btn-lg">Login to Book</a>
+                }
+            </div>
+
+            <!-- ===== HOST DETAILS ===== -->
+            <div class="ht-card p-4 p-md-5">
+                <h2 class="ht-section-title mb-4">Meet your host</h2>
+
+                <div class="row g-4 align-items-center">
+
+                    <!-- Host place photo (only shown if the host uploaded one) -->
+                    @if (Model.HostProfile?.PlacePicturePath != null)
+                    {
+                        <div class="col-12 col-md-4">
+                            <div class="ht-card-img-wrap" style="border-radius:12px; aspect-ratio:4/3;">
+                                <img src="@Model.HostProfile.PlacePicturePath" alt="Host place" class="ht-card-img" />
+                            </div>
+                        </div>
+                    }
+
+                    <!-- Host text info -->
+                    <div class="col">
+                        <ul class="list-unstyled ht-benefit-list mb-0">
+                            <li>
+                                <span class="material-symbols-outlined ht-check-icon">person</span>
+                                @Model.HostProfile?.User?.FullName
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined ht-check-icon">public</span>
+                                @Model.HostProfile?.Country
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined ht-check-icon">location_city</span>
+                                @Model.HostProfile?.City
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined ht-check-icon">location_on</span>
+                                @Model.HostProfile?.Location
+                            </li>
+                            @if (!string.IsNullOrEmpty(Model.HostProfile?.Bio))
+                            {
+                                <li>
+                                    <span class="material-symbols-outlined ht-check-icon">info</span>
+                                    @Model.HostProfile.Bio
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

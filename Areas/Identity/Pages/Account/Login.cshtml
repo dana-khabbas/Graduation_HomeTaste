@@ -1,0 +1,51 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+<section class="container-xl px-4 py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+
+            <!-- White card holding the login form -->
+            <div class="ht-card p-4 p-md-5">
+
+                <h2 class="ht-section-title mb-1">Welcome back</h2>
+                <p class="ht-section-subtitle mb-4">Log in to your HomeTaste account.</p>
+
+                <form method="post">
+                    <!-- Shows general errors (like wrong password) -->
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Email" class="form-label fw-bold">Email</label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" required />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.Password" class="form-label fw-bold">Password</label>
+                        <input asp-for="Input.Password" class="form-control" type="password" autocomplete="current-password" required />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label class="form-check-label" asp-for="Input.RememberMe">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn ht-btn-primary w-100">Log in</button>
+                </form>
+
+                <!-- Link to the register page -->
+                <p class="ht-section-subtitle mt-4 mb-0 text-center">
+                    New here?
+                    <a asp-area="Identity" asp-page="/Account/Register" class="fw-bold" style="color: var(--ht-primary);">Create an account</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>

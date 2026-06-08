@@ -1,21 +1,40 @@
 ﻿@model graduation_proj.Models.Review
 
-<h2>Leave a Review for @ViewBag.Dish?.Name</h2>
+@{
+    ViewData["Title"] = "Leave a Review";
+    // Use the public guest layout
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
 
-<form asp-area="Guest" asp-controller="Review" asp-action="Create" method="post">
-    <input type="hidden" asp-for="DishId" />
+<section class="container-xl px-4 py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
 
-    <div class="mb-3">
-        <label asp-for="Rating">Rating (1-5)</label>
-        <input asp-for="Rating" type="number" min="1" max="5" class="form-control" required />
-        <span asp-validation-for="Rating" class="text-danger"></span>
+            <!-- White card that holds the review form -->
+            <div class="ht-card p-4 p-md-5">
+
+                <h2 class="ht-section-title mb-1">Leave a Review</h2>
+                <p class="ht-section-subtitle mb-4">For @ViewBag.Dish?.Name</p>
+
+                <form asp-area="Guest" asp-controller="Review" asp-action="Create" method="post">
+                    <input type="hidden" asp-for="DishId" />
+
+                    <div class="mb-3">
+                        <label asp-for="Rating" class="form-label fw-bold">Rating (1-5)</label>
+                        <input asp-for="Rating" type="number" min="1" max="5" class="form-control" required />
+                        <span asp-validation-for="Rating" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Comment" class="form-label fw-bold">Your Review</label>
+                        <textarea asp-for="Comment" class="form-control" rows="4" required></textarea>
+                        <span asp-validation-for="Comment" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn ht-btn-primary">Submit Review</button>
+                </form>
+
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label asp-for="Comment">Your Review</label>
-        <textarea asp-for="Comment" class="form-control" rows="4" required></textarea>
-        <span asp-validation-for="Comment" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit Review</button>
-</form>
+</section>
