@@ -33,6 +33,26 @@ body {
 }
 
 /* ---------- Navbar ---------- */
+.ht-guest-navbar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.ht-guest-navbar .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 1;
+}
+
+.ht-brand-logo {
+    height: 1.75rem;
+    width: auto;
+    display: block;
+}
+
 .ht-navbar {
     background-color: var(--ht-surface);
     height: 80px;

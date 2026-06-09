@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\Graduation_HomeTaste\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B74004CE-0ECF-4B3C-9DC5-C0FF6379E255}|graduation_proj.csproj|c:\\users\\user\\source\\repos\\graduation_hometaste\\wwwroot\\images\\logo.png||{177559E0-D141-11D0-92DF-00A0C9138C45}",
+      "RelativeMoniker": "D:0:0:{B74004CE-0ECF-4B3C-9DC5-C0FF6379E255}|graduation_proj.csproj|solutionrelative:wwwroot\\images\\logo.png||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +27,18 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "logo.png - PNG [117x138, 32 bit, PNG]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Graduation_HomeTaste\\wwwroot\\images\\logo.png",
+              "RelativeDocumentMoniker": "wwwroot\\images\\logo.png",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Graduation_HomeTaste\\wwwroot\\images\\logo.png - PNG [117x138, 32 bit, PNG]",
+              "RelativeToolTip": "wwwroot\\images\\logo.png - PNG [117x138, 32 bit, PNG]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2026-06-09T21:45:15.696Z",
+              "EditorCaption": " - PNG [117x138, 32 bit, PNG]"
             }
           ]
         }

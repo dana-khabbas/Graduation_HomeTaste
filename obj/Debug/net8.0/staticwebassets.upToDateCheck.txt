@@ -21,6 +21,7 @@ wwwroot\images\dishes\ff02d682-e2b3-4c81-97a9-db0590a86fd2_grilled.jpg
 wwwroot\images\hosts\1fa69d65-e205-4d59-8ed4-ecb925520bc5.avif
 wwwroot\images\hosts\5abd4e0c-3127-4f99-bc22-cf12e31f67d0.png
 wwwroot\images\hosts\d0e892af-d9e1-4627-8f2d-c044a299fa8d.png
+wwwroot\images\logo.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
