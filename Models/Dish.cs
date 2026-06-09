@@ -13,6 +13,9 @@
         // It starts at 0 and goes up by 1 each time a guest books this dish.
         public int TimesBooked { get; set; } = 0;
 
+        // New dishes start as false until the admin approves them.
+        public bool IsApproved { get; set; } = false;
+
         // Foreign key to HostProfile
         public int HostProfileId { get; set; }
         public HostProfile HostProfile { get; set; }

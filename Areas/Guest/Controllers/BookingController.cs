@@ -61,7 +61,15 @@ namespace graduation_proj.Areas.Guest.Controllers
 
             var bookings = await _context.Bookings
                 .Include(b => b.Dish)
+                    .ThenInclude(d => d.HostProfile)
+                        .ThenInclude(h => h.User)
                 .Where(b => b.GuestId == user.Id)
+                .ToListAsync();
+
+            // Dish IDs this guest already reviewed (used to hide the Leave Review button)
+            ViewBag.ReviewedDishIds = await _context.Reviews
+                .Where(r => r.GuestId == user.Id)
+                .Select(r => r.DishId)
                 .ToListAsync();
 
             return View(bookings);

@@ -16,10 +16,11 @@ namespace graduation_proj.Areas.Guest.Controllers
 
         public async Task<IActionResult> Index(string country, string city, int? guests, string sort)
         {
-            // Start with all dishes (plus their host info)
+            // Only show dishes the admin has approved
             var query = _context.Dishes
                 .Include(d => d.HostProfile)
-                .ThenInclude(h => h.User)
+                    .ThenInclude(h => h.User)
+                .Where(d => d.IsApproved)
                 .AsQueryable();
 
             // --- SEARCH FILTERS ---
@@ -40,24 +41,25 @@ namespace graduation_proj.Areas.Guest.Controllers
                 query = query.Where(d => d.ServesPersons >= guests.Value);
             }
 
-            // --- SORTING ---
+            // --- SORTING (rating is sorted later using the Reviews table directly) ---
             query = sort switch
             {
                 "price" => query.OrderBy(d => d.Price),
-                "rating" => query.OrderByDescending(d => d.Reviews.Any() ? d.Reviews.Average(r => r.Rating) : 0),
+                "rating" => query,
                 _ => query.OrderByDescending(d => d.TimesBooked) // default: Most Booked
             };
 
             // --- DROPDOWN OPTIONS (built from the database) ---
-            ViewBag.Countries = await _context.HostProfiles
-                .Where(h => h.Country != null)
-                .Select(h => h.Country)
+            // Dropdown options only from hosts who have approved dishes
+            ViewBag.Countries = await _context.Dishes
+                .Where(d => d.IsApproved)
+                .Select(d => d.HostProfile.Country)
                 .Distinct()
                 .ToListAsync();
 
-            ViewBag.Cities = await _context.HostProfiles
-                .Where(h => h.City != null)
-                .Select(h => h.City)
+            ViewBag.Cities = await _context.Dishes
+                .Where(d => d.IsApproved)
+                .Select(d => d.HostProfile.City)
                 .Distinct()
                 .ToListAsync();
 
@@ -68,6 +70,24 @@ namespace graduation_proj.Areas.Guest.Controllers
             ViewBag.Sort = sort;
 
             var dishes = await query.ToListAsync();
+
+            // Load average ratings from the Reviews table (uses DishId column)
+            var dishIds = dishes.Select(d => d.DishId).ToList();
+            var ratingsByDish = await _context.Reviews
+                .Where(r => r.DishId != null && dishIds.Contains(r.DishId.Value))
+                .GroupBy(r => r.DishId!.Value)
+                .Select(g => new { DishId = g.Key, Avg = g.Average(r => r.Rating) })
+                .ToDictionaryAsync(x => x.DishId, x => x.Avg);
+
+            ViewBag.RatingsByDish = ratingsByDish;
+
+            if (sort == "rating")
+            {
+                dishes = dishes
+                    .OrderByDescending(d => ratingsByDish.GetValueOrDefault(d.DishId))
+                    .ToList();
+            }
+
             return View(dishes);
         }
 
@@ -76,7 +96,7 @@ namespace graduation_proj.Areas.Guest.Controllers
             var dish = await _context.Dishes
                 .Include(d => d.HostProfile)
                 .ThenInclude(h => h.User)
-                .FirstOrDefaultAsync(d => d.DishId == id);
+                .FirstOrDefaultAsync(d => d.DishId == id && d.IsApproved);
 
             if (dish == null) return NotFound();
 

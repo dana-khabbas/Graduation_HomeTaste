@@ -9,10 +9,12 @@ namespace graduation_proj.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         // The values typed into the login form
@@ -61,6 +63,13 @@ namespace graduation_proj.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    // Send admin users straight to the admin dashboard
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    if (user != null && await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
 

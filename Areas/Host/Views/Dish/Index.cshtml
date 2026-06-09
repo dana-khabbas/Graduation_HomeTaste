@@ -27,10 +27,11 @@ else
             <thead>
                 <tr class="adm-dish-host text-uppercase">
                     <th>Photo</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Serves</th>
-                    <th class="text-end">Actions</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Serves</th>
+                <th>Status</th>
+                <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,16 @@ else
                         <td class="fw-bold">@dish.Name</td>
                         <td>$@dish.Price</td>
                         <td>@dish.ServesPersons</td>
+                        <td>
+                            @if (dish.IsApproved)
+                            {
+                                <span class="badge bg-success">Approved</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Pending approval</span>
+                            }
+                        </td>
                         <td class="text-end">
                             <a asp-action="Details" asp-route-id="@dish.DishId" class="adm-btn-outline btn-sm">Details</a>
                             <a asp-action="Edit" asp-route-id="@dish.DishId" class="adm-btn-outline btn-sm">Edit</a>
@@ -58,4 +69,20 @@ else
             </tbody>
         </table>
     </div>
+}
+
+@section Scripts {
+<script>
+    @if (TempData["ProfileUpdated"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: "Profile updated!",
+            text: "Your changes have been saved.",
+            icon: "success",
+            confirmButtonColor: "#D17132"
+        });
+        </text>
+    }
+</script>
 }

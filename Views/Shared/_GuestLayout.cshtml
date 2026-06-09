@@ -23,7 +23,11 @@
             
             @if (User.Identity.IsAuthenticated)
             {
-                @if (User.IsInRole("Host"))
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="/admin/dashboard" class="ht-nav-btn">Admin Portal</a>
+                }
+                else if (User.IsInRole("Host"))
                 {
                     <a href="/host/dish" class="ht-nav-btn">Host Portal</a>
                 }

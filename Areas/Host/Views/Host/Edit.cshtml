@@ -1,63 +1,76 @@
-﻿@model graduation_proj.Models.HostProfile
+@model graduation_proj.Models.HostProfile
 
 @{
-    ViewData["Title"] = "Join as Host";
+    ViewData["Title"] = "Edit Profile";
+    ViewData["ActivePage"] = "Profile";
 }
 
-<!-- Page header -->
-<h1 class="adm-page-title">Join as Host</h1>
-<p class="adm-page-subtitle mb-4">Tell guests about you and open your kitchen.</p>
+<h1 class="adm-page-title">Edit Profile</h1>
+<p class="adm-page-subtitle mb-4">Update your host information.</p>
 
 <div class="row justify-content-center">
     <div class="col-12 col-lg-8">
         <div class="adm-card">
 
-            <!-- Shows validation errors if the form is not filled correctly -->
             <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-            <form asp-action="Join" method="post" enctype="multipart/form-data">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="HostProfileId" />
+                <input type="hidden" asp-for="PlacePicturePath" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Full Name</label>
+                    <input type="text" name="fullName" class="form-control"
+                           value="@ViewBag.FullName" required />
+                </div>
 
                 <div class="mb-3">
                     <label asp-for="Country" class="form-label fw-bold">Country</label>
-                    <input asp-for="Country" class="form-control" />
+                    <input asp-for="Country" class="form-control" required />
                     <span asp-validation-for="Country" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="City" class="form-label fw-bold">City</label>
-                    <input asp-for="City" class="form-control" />
+                    <input asp-for="City" class="form-control" required />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <!-- Host pastes their Google Maps share link here -->
                     <label asp-for="Location" class="form-label fw-bold">Google Maps Link</label>
                     <input asp-for="Location" class="form-control" type="url"
-                           placeholder="https://maps.google.com/..." />
+                           placeholder="https://maps.google.com/..." required />
                     <small class="text-muted">Open Google Maps → Share → Copy link → paste here.</small>
                     <span asp-validation-for="Location" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="PhoneNumber" class="form-label fw-bold">Phone Number</label>
-                    <input asp-for="PhoneNumber" class="form-control" />
+                    <input asp-for="PhoneNumber" class="form-control" required />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Bio" class="form-label fw-bold">Bio</label>
-                    <textarea asp-for="Bio" class="form-control" rows="3"></textarea>
+                    <textarea asp-for="Bio" class="form-control" rows="3" required></textarea>
                     <span asp-validation-for="Bio" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <!-- Personal photo so guests can see the host.
-                         Field name stays "PlacePicture" so the controller still saves it. -->
                     <label class="form-label fw-bold">Your Personal Photo</label>
                     <input type="file" name="PlacePicture" accept="image/*" class="form-control" />
+
+                    @if (!string.IsNullOrEmpty(Model.PlacePicturePath))
+                    {
+                        <div class="mt-3">
+                            <span class="adm-dish-host text-uppercase d-block mb-1">Current photo</span>
+                            <img src="@Model.PlacePicturePath" alt="Your photo"
+                                 style="width:120px; height:120px; object-fit:cover; border-radius:50%;" />
+                        </div>
+                    }
                 </div>
 
-                <button type="submit" class="adm-btn-primary">Join Now</button>
+                <button type="submit" class="adm-btn-primary">Save Changes</button>
             </form>
 
         </div>

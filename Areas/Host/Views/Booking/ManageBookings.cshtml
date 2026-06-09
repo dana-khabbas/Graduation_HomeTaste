@@ -21,6 +21,7 @@ else
             <thead>
                 <tr class="adm-dish-host text-uppercase">
                     <th>Guest</th>
+                    <th>Guest Phone</th>
                     <th>Dish</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -34,6 +35,7 @@ else
                 {
                     <tr>
                         <td class="fw-bold">@booking.Guest?.FullName</td>
+                        <td>@(booking.Guest?.PhoneNumber ?? "—")</td>
                         <td>@booking.Dish?.Name</td>
                         <td>@booking.VisitDate.ToShortDateString()</td>
                         <td>@booking.VisitTime</td>

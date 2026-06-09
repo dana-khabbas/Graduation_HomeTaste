@@ -1,8 +1,11 @@
-﻿@{
+﻿@model IEnumerable<graduation_proj.Models.Dish>
+
+@{
     ViewBag.Title = "Authentic Homemade Food";
     Layout = "~/Views/Shared/_GuestLayout.cshtml";
+
+    var ratingsByDish = ViewBag.RatingsByDish as Dictionary<int, double> ?? new Dictionary<int, double>();
 }
-@model IEnumerable<graduation_proj.Models.Dish>
 
 <!-- ===== HERO SECTION ===== -->
 <section class="ht-hero position-relative overflow-hidden">
@@ -123,6 +126,23 @@
                         <span class="ht-card-price">$@dish.Price</span>
                     </div>
                     <p class="ht-card-location">@dish.HostProfile?.City • @dish.ServesPersons Guests max</p>
+
+                    <!-- Show average star rating, or "No rating yet" if there are no reviews -->
+                    @if (ratingsByDish.TryGetValue(dish.DishId, out var avgRating))
+                    {
+                        <div class="text-warning mb-1">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <span>@(i <= Math.Round(avgRating) ? "★" : "☆")</span>
+                            }
+                            <span class="ht-card-location">(@avgRating.ToString("0.0"))</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="ht-card-location mb-1">No rating yet</p>
+                    }
+
                     <p class="ht-card-location">Booked @dish.TimesBooked times</p>
                     <a href="/guest/home/dishdetails/@dish.DishId" class="btn btn-warning btn-sm mt-2">View Dish</a>
                 </div>

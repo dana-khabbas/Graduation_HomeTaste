@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using graduation_proj.Data;
 
@@ -11,9 +12,11 @@ using graduation_proj.Data;
 namespace graduation_proj.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260609212910_FixReviewDishRelationship")]
+    partial class FixReviewDishRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -373,6 +376,9 @@ namespace graduation_proj.Data.Migrations
                     b.Property<int?>("DishId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DishId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("GuestId")
                         .HasColumnType("nvarchar(450)");
 
@@ -382,6 +388,8 @@ namespace graduation_proj.Data.Migrations
                     b.HasKey("ReviewId");
 
                     b.HasIndex("DishId");
+
+                    b.HasIndex("DishId1");
 
                     b.HasIndex("GuestId");
 
@@ -479,9 +487,13 @@ namespace graduation_proj.Data.Migrations
             modelBuilder.Entity("graduation_proj.Models.Review", b =>
                 {
                     b.HasOne("graduation_proj.Models.Dish", "Dish")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("DishId")
                         .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("graduation_proj.Models.Dish", null)
+                        .WithMany("Reviews")
+                        .HasForeignKey("DishId1");
 
                     b.HasOne("graduation_proj.Models.ApplicationUser", "Guest")
                         .WithMany()

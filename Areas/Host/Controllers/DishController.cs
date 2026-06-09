@@ -89,6 +89,9 @@ namespace graduation_proj.Areas.Host.Controllers
             dish.HostProfileId = hostProfile.HostProfileId;
             dish.HostProfile = hostProfile;
 
+            // New dishes wait for admin approval before guests can see them
+            dish.IsApproved = false;
+
             // Clean up navigation validations
             ModelState.Remove("HostProfile");
             ModelState.Remove("Bookings");

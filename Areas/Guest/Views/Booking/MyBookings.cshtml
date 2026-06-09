@@ -2,8 +2,10 @@
 
 @{
     ViewData["Title"] = "My Bookings";
-    // Use the public guest layout
     Layout = "~/Views/Shared/_GuestLayout.cshtml";
+
+    // Dish IDs the guest already reviewed
+    var reviewedDishIds = ViewBag.ReviewedDishIds as List<int?> ?? new List<int?>();
 }
 
 <section class="container-xl px-4 py-5">
@@ -26,10 +28,12 @@
                 <thead>
                     <tr class="ht-card-location text-uppercase">
                         <th>Dish</th>
+                        <th>Host</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Persons</th>
                         <th>Status</th>
+                        <th>Host Contact</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -38,6 +42,7 @@
                     {
                         <tr>
                             <td class="fw-bold">@booking.Dish?.Name</td>
+                            <td>@booking.Dish?.HostProfile?.User?.FullName</td>
                             <td>@booking.VisitDate.ToShortDateString()</td>
                             <td>@booking.VisitTime</td>
                             <td>@booking.NumberOfPersons</td>
@@ -57,15 +62,50 @@
                                 }
                             </td>
                             <td>
-                                <!-- Only pending bookings can be cancelled -->
-                                @if (booking.Status == graduation_proj.Models.BookingStatus.Pending)
-                                {
-                                    <!-- js-cancel-form: the script below asks for confirmation before submitting -->
-                                    <form asp-action="Cancel" method="post" class="js-cancel-form">
-                                        <input type="hidden" name="id" value="@booking.BookingId" />
-                                        <button type="submit" class="btn ht-btn-outline btn-sm">Cancel</button>
-                                    </form>
+                                @{
+                                    var mapLink = booking.Dish?.HostProfile?.Location;
+                                    if (!string.IsNullOrEmpty(mapLink) && !mapLink.StartsWith("http"))
+                                    {
+                                        mapLink = "https://" + mapLink;
+                                    }
                                 }
+                                @if (!string.IsNullOrEmpty(mapLink))
+                                {
+                                    <a href="@mapLink" target="_blank" rel="noopener noreferrer"
+                                       class="d-block mb-1" style="color: var(--ht-primary);">
+                                        View on Google Maps
+                                    </a>
+                                }
+                                <span class="ht-card-location">
+                                    @(booking.Dish?.HostProfile?.PhoneNumber ?? "—")
+                                </span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <!-- Confirmed visit: show review button only if not reviewed yet -->
+                                    @if (booking.Status == graduation_proj.Models.BookingStatus.Confirmed && booking.DishId.HasValue)
+                                    {
+                                        @if (reviewedDishIds.Contains(booking.DishId))
+                                        {
+                                            <span class="badge bg-success">Reviewed</span>
+                                        }
+                                        else
+                                        {
+                                            <a asp-area="Guest" asp-controller="Review" asp-action="Create"
+                                               asp-route-dishId="@booking.DishId"
+                                               class="btn ht-btn-primary btn-sm">Leave Review</a>
+                                        }
+                                    }
+
+                                    <!-- Only pending bookings can be cancelled -->
+                                    @if (booking.Status == graduation_proj.Models.BookingStatus.Pending)
+                                    {
+                                        <form asp-action="Cancel" method="post" class="js-cancel-form">
+                                            <input type="hidden" name="id" value="@booking.BookingId" />
+                                            <button type="submit" class="btn ht-btn-outline btn-sm">Cancel</button>
+                                        </form>
+                                    }
+                                </div>
                             </td>
                         </tr>
                     }
@@ -100,4 +140,30 @@
             });
         });
     });
+
+    // Success popup after a review was submitted
+    @if (TempData["ReviewSuccess"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: "Review submitted!",
+            text: "Thank you for sharing your experience.",
+            icon: "success",
+            confirmButtonColor: "#D17132"
+        });
+        </text>
+    }
+
+    // Error popup if they already reviewed this dish
+    @if (TempData["ReviewError"] != null)
+    {
+        <text>
+        Swal.fire({
+            title: "Already reviewed",
+            text: "@TempData["ReviewError"]",
+            icon: "info",
+            confirmButtonColor: "#D17132"
+        });
+        </text>
+    }
 </script>

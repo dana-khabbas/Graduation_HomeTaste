@@ -49,6 +49,12 @@
                 <span class="material-symbols-outlined">star</span>
                 <span>Reviews</span>
             </a>
+
+            <a href="@Url.Action("Edit", "Host", new { area = "Host" })"
+               class="adm-nav-link @(ViewData["ActivePage"]?.ToString() == "Profile" ? "adm-nav-link--active" : "")">
+                <span class="material-symbols-outlined">person</span>
+                <span>Edit Profile</span>
+            </a>
         </nav>
 
         <!-- Logout -->

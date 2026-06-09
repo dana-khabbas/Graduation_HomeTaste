@@ -2,6 +2,7 @@
 using graduation_proj.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace graduation_proj.Areas.Guest.Controllers
 {
@@ -20,8 +21,20 @@ namespace graduation_proj.Areas.Guest.Controllers
         // GET: /Guest/Review/Create?dishId=5
         public async Task<IActionResult> Create(int dishId)
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account", new { area = "Identity" });
+
             var dish = await _context.Dishes.FindAsync(dishId);
             if (dish == null) return NotFound();
+
+            // One review per guest per dish — block if they already reviewed this dish
+            var alreadyReviewed = await _context.Reviews
+                .AnyAsync(r => r.GuestId == user.Id && r.DishId == dishId);
+            if (alreadyReviewed)
+            {
+                TempData["ReviewError"] = "You have already reviewed this dish.";
+                return RedirectToAction("MyBookings", "Booking", new { area = "Guest" });
+            }
 
             ViewBag.Dish = dish;
 
@@ -49,8 +62,20 @@ namespace graduation_proj.Areas.Guest.Controllers
 
             if (ModelState.IsValid)
             {
+                // Double-check on submit so nobody can post twice
+                var alreadyReviewed = await _context.Reviews
+                    .AnyAsync(r => r.GuestId == user.Id && r.DishId == review.DishId);
+                if (alreadyReviewed)
+                {
+                    TempData["ReviewError"] = "You have already reviewed this dish.";
+                    return RedirectToAction("MyBookings", "Booking", new { area = "Guest" });
+                }
+
                 _context.Reviews.Add(review);
                 await _context.SaveChangesAsync();
+
+                // Used on My Bookings to show the success popup
+                TempData["ReviewSuccess"] = true;
                 return RedirectToAction("MyBookings", "Booking", new { area = "Guest" });
             }
 

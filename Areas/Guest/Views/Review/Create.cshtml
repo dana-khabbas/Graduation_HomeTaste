@@ -31,7 +31,10 @@
                         <span asp-validation-for="Comment" class="text-danger"></span>
                     </div>
 
-                    <button type="submit" class="btn ht-btn-primary">Submit Review</button>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn ht-btn-primary">Submit Review</button>
+                        <a asp-area="Guest" asp-controller="Booking" asp-action="MyBookings" class="btn ht-btn-outline">Back to My Bookings</a>
+                    </div>
                 </form>
 
             </div>

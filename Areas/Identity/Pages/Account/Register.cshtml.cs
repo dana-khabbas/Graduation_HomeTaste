@@ -66,7 +66,8 @@ namespace graduation_proj.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Email = Input.Email,
                     FullName = Input.FullName,
-                    PhoneNumber = Input.PhoneNumber
+                    PhoneNumber = Input.PhoneNumber,
+                    JoinedAt = DateTime.Now
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 

@@ -1,0 +1,72 @@
+@model IEnumerable<graduation_proj.Models.Review>
+
+@{
+    ViewData["Title"] = "Reviews";
+    ViewData["ActivePage"] = "Reviews";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 class="adm-page-title">Reviews</h1>
+<p class="adm-page-subtitle mb-4">All guest reviews across the platform.</p>
+
+@if (!Model.Any())
+{
+    <div class="adm-card text-center">
+        <p class="adm-page-subtitle mb-0">No reviews yet.</p>
+    </div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var review in Model)
+        {
+            <div class="col-12">
+                <div class="adm-card">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <h5 class="adm-card-title mb-1">@(review.Guest?.FullName ?? "Anonymous")</h5>
+                            <p class="adm-dish-host text-uppercase mb-1">
+                                Dish: @review.Dish?.Name
+                                • Host: @review.Dish?.HostProfile?.User?.FullName
+                            </p>
+                            <div class="text-warning mb-2">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <span>@(i <= review.Rating ? "★" : "☆")</span>
+                                }
+                            </div>
+                            <p class="mb-0 fst-italic">"@review.Comment"</p>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-secondary mb-2">@review.CreatedAt.ToShortDateString()</span>
+                            <form asp-action="Delete" method="post" class="js-delete-review">
+                                <input type="hidden" name="id" value="@review.ReviewId" />
+                                <button type="submit" class="adm-btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+<script>
+    document.querySelectorAll(".js-delete-review").forEach(function (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Delete this review?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#D17132",
+                cancelButtonColor: "#8d7168",
+                confirmButtonText: "Yes, delete"
+            }).then(function (result) {
+                if (result.isConfirmed) form.submit();
+            });
+        });
+    });
+</script>
+}

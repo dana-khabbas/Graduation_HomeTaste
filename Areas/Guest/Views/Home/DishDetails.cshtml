@@ -81,9 +81,24 @@
                                 <span class="material-symbols-outlined ht-check-icon">location_city</span>
                                 @Model.HostProfile?.City
                             </li>
+                            @{
+                                var mapLink = Model.HostProfile?.Location;
+                                if (!string.IsNullOrEmpty(mapLink) && !mapLink.StartsWith("http"))
+                                {
+                                    mapLink = "https://" + mapLink;
+                                }
+                            }
+                            @if (!string.IsNullOrEmpty(mapLink))
+                            {
+                                <li>
+                                    <span class="material-symbols-outlined ht-check-icon">location_on</span>
+                                    <a href="@mapLink" target="_blank" rel="noopener noreferrer"
+                                       style="color: var(--ht-primary);">View on Google Maps</a>
+                                </li>
+                            }
                             <li>
-                                <span class="material-symbols-outlined ht-check-icon">location_on</span>
-                                @Model.HostProfile?.Location
+                                <span class="material-symbols-outlined ht-check-icon">call</span>
+                                @(Model.HostProfile?.PhoneNumber ?? "—")
                             </li>
                             @if (!string.IsNullOrEmpty(Model.HostProfile?.Bio))
                             {

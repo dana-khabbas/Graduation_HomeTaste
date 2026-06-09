@@ -27,12 +27,12 @@ namespace graduation_proj.Data
                 .HasForeignKey(r => r.GuestId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // 2. Fix Review -> Dish 
+            // Link Review to Dish using DishId (same column the app saves when a guest submits a review)
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.Dish)
-                .WithMany() // Change to .WithMany(d => d.Reviews) if your Dish model has a public List<Review> Reviews property
+                .WithMany(d => d.Reviews)
                 .HasForeignKey(r => r.DishId)
-                .OnDelete(DeleteBehavior.NoAction); // Prevents multiple cascade paths
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

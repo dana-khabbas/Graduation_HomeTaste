@@ -3,6 +3,7 @@ using graduation_proj.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace graduation_proj.Areas.Host.Controllers
 {
@@ -102,6 +103,80 @@ namespace graduation_proj.Areas.Host.Controllers
             }
 
             // If we reach here, validation failed! Let's show you why in Step 2.
+            return View(model);
+        }
+
+        // Show edit profile form (only for hosts who already joined)
+        [Authorize]
+        public async Task<IActionResult> Edit()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account", new { area = "Identity" });
+
+            var profile = await _context.HostProfiles
+                .FirstOrDefaultAsync(h => h.UserId == user.Id);
+
+            if (profile == null) return RedirectToAction(nameof(Join));
+
+            ViewBag.FullName = user.FullName;
+            return View(profile);
+        }
+
+        // Save edited profile
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(HostProfile model, IFormFile? PlacePicture, string fullName)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Login", "Account", new { area = "Identity" });
+
+            var profile = await _context.HostProfiles
+                .FirstOrDefaultAsync(h => h.HostProfileId == model.HostProfileId && h.UserId == user.Id);
+
+            if (profile == null) return NotFound();
+
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
+            ModelState.Remove("Dishes");
+
+            if (ModelState.IsValid)
+            {
+                // Update text fields
+                profile.Country = model.Country;
+                profile.City = model.City;
+                profile.Location = model.Location;
+                profile.PhoneNumber = model.PhoneNumber;
+                profile.Bio = model.Bio;
+
+                // Update personal photo only if a new file was uploaded
+                if (PlacePicture != null && PlacePicture.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "hosts");
+                    Directory.CreateDirectory(uploadsFolder);
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(PlacePicture.FileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await PlacePicture.CopyToAsync(stream);
+                    }
+                    profile.PlacePicturePath = "/images/hosts/" + fileName;
+                }
+
+                // Update display name on the user account
+                if (!string.IsNullOrWhiteSpace(fullName))
+                {
+                    user.FullName = fullName;
+                }
+
+                await _context.SaveChangesAsync();
+
+                TempData["ProfileUpdated"] = true;
+                return RedirectToAction("Index", "Dish", new { area = "Host" });
+            }
+
+            ViewBag.FullName = fullName;
             return View(model);
         }
     }
